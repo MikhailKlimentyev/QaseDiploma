@@ -27,20 +27,17 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        Configuration.browser = "chrome";
-        Configuration.startMaximized = true;
-        Configuration.timeout = 7000;
-        Configuration.headless = false;
-        Configuration.holdBrowserOpen = true;
-        startSteps = new StartSteps();
-        loginSteps = new LoginSteps();
-        projectsSteps = new ProjectsSteps();
-        loginPage = new LoginPage();
-        projectsPage = new ProjectsPage();
+        setBrowser();
+        setBrowserMaximized();
+        setTimeout();
+        setHeadless();
+        setHoldBrowserOpen();
+        createInstances();
     }
 
     @AfterMethod(alwaysRun = true)
     public void closeBrowser() {
+        log.debug("Driver is quited");
         getWebDriver().quit();
     }
 
@@ -49,5 +46,43 @@ public class BaseTest {
         log.debug(String.format("Getting property/environment variable with key '%s' and value '%s'",
                 key, propertyValue));
         return propertyValue;
+    }
+
+    private void createInstances() {
+        startSteps = new StartSteps();
+        loginSteps = new LoginSteps();
+        projectsSteps = new ProjectsSteps();
+        loginPage = new LoginPage();
+        projectsPage = new ProjectsPage();
+    }
+
+    private void setBrowser() {
+        String browser = "chrome";
+        log.debug(String.format("Browser is %s", browser));
+        Configuration.browser = browser;
+    }
+
+    private void setBrowserMaximized() {
+        boolean isMaximized = true;
+        log.debug(String.format("Browser is maximized %s", isMaximized));
+        Configuration.startMaximized = isMaximized;
+    }
+
+    private void setTimeout() {
+        int timeout = 7000;
+        log.debug(String.format("Timeout is %s", 7000));
+        Configuration.timeout = 7000;
+    }
+
+    private void setHeadless() {
+        boolean isHeadless = false;
+        log.debug(String.format("Headless is enabled %s", isHeadless));
+        Configuration.headless = isHeadless;
+    }
+
+    private void setHoldBrowserOpen() {
+        boolean holdBrowserOpen = true;
+        log.debug(String.format("Hold browser open %s", holdBrowserOpen));
+        Configuration.holdBrowserOpen = true;
     }
 }

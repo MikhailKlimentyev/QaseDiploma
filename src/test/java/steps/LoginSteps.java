@@ -1,5 +1,6 @@
 package steps;
 
+import io.qameta.allure.Step;
 import org.testng.Assert;
 import pages.LoginPage;
 
@@ -13,6 +14,7 @@ public class LoginSteps {
         this.loginPage = new LoginPage();
     }
 
+    @Step("Open login page")
     public LoginSteps openPage() {
         loginPage
                 .openPage()
@@ -20,7 +22,8 @@ public class LoginSteps {
         return this;
     }
 
-    public ProjectsSteps safelyLogin(String email, String password) {
+    @Step("Login with {email} email, {password} password")
+    public ProjectsSteps login(String email, String password) {
         loginPage
                 .enterEmail(email)
                 .enterPassword(password)
@@ -28,10 +31,12 @@ public class LoginSteps {
         return new ProjectsSteps();
     }
 
+    @Step("Verify that login form should be displayed {isLoginFormDisplayed}")
     public void loginFormShouldBeDisplayed(boolean isLoginFormDisplayed) {
         Assert.assertTrue(isLoginFormDisplayed, "Login form is not displayed");
     }
 
+    @Step("Verify that error message should be like {errorMessage}")
     public void errorMessageShouldBeLike(String errorMessage) {
         Assert.assertEquals(errorMessage, INVALID_CREDENTIALS_ERROR_MESSAGE, "Error does not match to expected");
     }

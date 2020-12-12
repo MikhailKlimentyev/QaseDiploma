@@ -1,15 +1,11 @@
 package tests.listeners;
 
-import io.qameta.allure.Attachment;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.NoSuchSessionException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import utils.ScreenshotUtils;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -33,14 +29,14 @@ public class TestListener implements ITestListener {
                 iTestResult.getName(), getExecutionTime(iTestResult)));
         log.error(ExceptionUtils.getStackTrace(iTestResult.getThrowable()));
         log.error("Screenshot is attached");
-        takeScreenshot(iTestResult);
+        ScreenshotUtils.takeScreenshot();
     }
 
     public void onTestSkipped(ITestResult iTestResult) {
         log.error(String.format("=========================================== SKIPPING TEST %s ===========================================",
                 iTestResult.getName()));
         log.error("Screenshot is attached");
-        takeScreenshot(iTestResult);
+        ScreenshotUtils.takeScreenshot();
     }
 
     @Override
@@ -59,20 +55,5 @@ public class TestListener implements ITestListener {
 
     private long getExecutionTime(ITestResult iTestResult) {
         return TimeUnit.MILLISECONDS.toSeconds(iTestResult.getEndMillis() - iTestResult.getStartMillis());
-    }
-
-    @Attachment(value = "Last screen state", type = "image/png")
-    private byte[] takeScreenshot(ITestResult iTestResult) {
-        ITestContext context = iTestResult.getTestContext();
-        try {
-            WebDriver driver = (WebDriver) context.getAttribute("driver");
-            if (driver != null) {
-                return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            } else {
-                return new byte[]{};
-            }
-        } catch (NoSuchSessionException | IllegalStateException ex) {
-            return new byte[]{};
-        }
     }
 }

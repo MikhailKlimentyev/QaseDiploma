@@ -1,13 +1,12 @@
 package pages;
 
-import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import pages.base.BasePage;
 
 import static models.Constants.LOGIN_BUTTON;
 import static models.Constants.START_PAGE;
 
-@Log4j2
+
 public class StartPage extends BasePage {
 
     public static final String URL = "https://qase.io/";

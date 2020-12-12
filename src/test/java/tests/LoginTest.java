@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Feature;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -10,6 +11,7 @@ import static pages.LoginPage.LOGIN_BUTTON_ID;
 import static pages.ProjectsPage.PROJECT_NAME_LABEL_XPATH;
 import static pages.ProjectsPage.USER_MENU_CLASS;
 
+@Feature("Login")
 public class LoginTest extends BaseTest {
 
     @Test(description = "Login form should be opened after clicking on Login button")
@@ -26,7 +28,7 @@ public class LoginTest extends BaseTest {
     public void userShouldBeLoggedInAndProjectsPageShouldBeOpened() {
         loginSteps
                 .openPage()
-                .safelyLogin(getEnvOrReadProperty(QASE_EMAIL_PROPERTY),
+                .login(getEnvOrReadProperty(QASE_EMAIL_PROPERTY),
                         getEnvOrReadProperty(QASE_PASSWORD_PROPERTY));
         boolean isProjectNameLabelDisplayed = projectsPage.isElementDisplayed(PROJECT_NAME_LABEL_XPATH);
         projectsSteps.projectNameLabelShouldBeDisplayed(isProjectNameLabelDisplayed);
@@ -39,7 +41,7 @@ public class LoginTest extends BaseTest {
     public void errorShouldBeAppearedOnAttemptLoginWithInvalidCredentials(String email, String password) {
         loginSteps
                 .openPage()
-                .safelyLogin(email, password);
+                .login(email, password);
         String errorText = loginPage.getTextOfElement(ERROR_MESSAGE_CLASS);
         loginSteps.errorMessageShouldBeLike(errorText);
     }

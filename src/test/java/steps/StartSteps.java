@@ -1,5 +1,6 @@
 package steps;
 
+import io.qameta.allure.Step;
 import pages.StartPage;
 
 public class StartSteps {
@@ -10,6 +11,7 @@ public class StartSteps {
         startPage = new StartPage();
     }
 
+    @Step("Open start page")
     public StartSteps openPage() {
         startPage
                 .openPage()
@@ -17,6 +19,7 @@ public class StartSteps {
         return this;
     }
 
+    @Step("Open login form")
     public LoginSteps openLoginForm() {
         startPage
                 .clickOnLoginButton();
