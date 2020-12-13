@@ -6,44 +6,42 @@ import org.testng.annotations.Test;
 
 import static models.Constants.QASE_EMAIL_PROPERTY;
 import static models.Constants.QASE_PASSWORD_PROPERTY;
-import static pages.LoginPage.ERROR_MESSAGE_CLASS;
-import static pages.LoginPage.LOGIN_BUTTON_ID;
-import static pages.ProjectsPage.PROJECT_NAME_LABEL_XPATH;
-import static pages.ProjectsPage.USER_MENU_CLASS;
+import static pages.LoginPage.LOGIN_BUTTON_LOCATOR;
+import static pages.ProjectsPage.PROJECT_NAME_LABEL_LOCATOR;
+import static pages.ProjectsPage.USER_MENU_LOCATOR;
 
 @Feature("Login")
 public class LoginTest extends BaseTest {
 
-    @Test(description = "Login form should be opened after clicking on Login button")
+    @Test(description = "Verify that login form is be opened after clicking on Login button")
     public void loginFormShouldBeOpened() {
         startSteps
                 .openPage()
                 .openLoginForm();
-        boolean isLoginButtonDisplayed = loginPage.isElementDisplayed(LOGIN_BUTTON_ID);
+        boolean isLoginButtonDisplayed = loginPage.isElementDisplayed(LOGIN_BUTTON_LOCATOR);
         loginSteps.loginFormShouldBeDisplayed(isLoginButtonDisplayed);
     }
 
-    @Test(description = "User should be logged in and projects page should be opened on attempt" +
+    @Test(description = "Verify that user should is logged in and projects page is be opened on attempt" +
             " to login with valid credentials")
     public void userShouldBeLoggedInAndProjectsPageShouldBeOpened() {
         loginSteps
                 .openPage()
-                .login(getEnvOrReadProperty(QASE_EMAIL_PROPERTY),
-                        getEnvOrReadProperty(QASE_PASSWORD_PROPERTY));
-        boolean isProjectNameLabelDisplayed = projectsPage.isElementDisplayed(PROJECT_NAME_LABEL_XPATH);
+                .login(getEnvOrReadProperty(QASE_EMAIL_PROPERTY), getEnvOrReadProperty(QASE_PASSWORD_PROPERTY));
+        boolean isProjectNameLabelDisplayed = projectsPage.isElementDisplayed(PROJECT_NAME_LABEL_LOCATOR);
         projectsSteps.projectNameLabelShouldBeDisplayed(isProjectNameLabelDisplayed);
-        boolean isUserMenuDisplayed = projectsPage.isElementDisplayed(USER_MENU_CLASS);
+        boolean isUserMenuDisplayed = projectsPage.isElementDisplayed(USER_MENU_LOCATOR);
         projectsSteps.userMenuShouldBeDisplayed(isUserMenuDisplayed);
     }
 
-    @Test(description = "Error should be appeared on attempt to login with invalid credentials",
+    @Test(description = "Verify that error is be appeared on attempt to login with invalid credentials",
             dataProvider = "invalidEmailAndInvalidPasswordDataProvider")
     public void errorShouldBeAppearedOnAttemptLoginWithInvalidCredentials(String email, String password) {
         loginSteps
                 .openPage()
                 .login(email, password);
-        String errorText = loginPage.getTextOfElement(ERROR_MESSAGE_CLASS);
-        loginSteps.errorMessageShouldBeLike(errorText);
+        String errorMessage = loginPage.getErrorMessage();
+        loginSteps.errorMessageShouldBeLike(errorMessage);
     }
 
     @DataProvider(name = "invalidEmailAndInvalidPasswordDataProvider")

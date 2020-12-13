@@ -12,12 +12,20 @@ public class ProjectsSteps {
         this.projectsPage = new ProjectsPage();
     }
 
-    @Step("Verify that project name label should be displayed {isProjectNameLabelDisplayed}")
+    @Step("Create new project")
+    public CreateProjectSteps createNewProject() {
+        projectsPage
+                .clickOnCreateNewProjectButton()
+                .isPageOpened();
+        return new CreateProjectSteps();
+    }
+
+    @Step("Verify that project name label with state {isProjectNameLabelDisplayed} is displayed")
     public void projectNameLabelShouldBeDisplayed(boolean isProjectNameLabelDisplayed) {
         Assert.assertTrue(isProjectNameLabelDisplayed, "Project name label is not displayed");
     }
 
-    @Step("Verify that user menu should be displayed {isUserMenuDisplayed}")
+    @Step("Verify that user menu with state {isUserMenuDisplayed} is displayed")
     public void userMenuShouldBeDisplayed(boolean isUserMenuDisplayed) {
         Assert.assertTrue(isUserMenuDisplayed, "User menu is not displayed");
     }

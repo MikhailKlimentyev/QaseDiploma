@@ -5,11 +5,11 @@ import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
+import pages.CreateProjectPage;
 import pages.LoginPage;
+import pages.ProjectPage;
 import pages.ProjectsPage;
-import steps.LoginSteps;
-import steps.ProjectsSteps;
-import steps.StartSteps;
+import steps.*;
 import tests.listeners.TestListener;
 import utils.PropertyReader;
 
@@ -20,10 +20,14 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class BaseTest {
 
     StartSteps startSteps;
-    LoginSteps loginSteps;
-    ProjectsSteps projectsSteps;
     LoginPage loginPage;
+    LoginSteps loginSteps;
     ProjectsPage projectsPage;
+    ProjectsSteps projectsSteps;
+    CreateProjectPage createProjectPage;
+    CreateProjectSteps createProjectSteps;
+    ProjectPage projectPage;
+    ProjectSteps projectSteps;
 
     @BeforeMethod
     public void setUp() {
@@ -50,10 +54,14 @@ public class BaseTest {
 
     private void createInstances() {
         startSteps = new StartSteps();
-        loginSteps = new LoginSteps();
-        projectsSteps = new ProjectsSteps();
         loginPage = new LoginPage();
+        loginSteps = new LoginSteps();
         projectsPage = new ProjectsPage();
+        projectsSteps = new ProjectsSteps();
+        createProjectPage = new CreateProjectPage();
+        createProjectSteps = new CreateProjectSteps();
+        projectPage = new ProjectPage();
+        projectSteps = new ProjectSteps();
     }
 
     private void setBrowser() {
@@ -69,9 +77,9 @@ public class BaseTest {
     }
 
     private void setTimeout() {
-        int timeout = 7000;
-        log.debug(String.format("Timeout is %s", 7000));
-        Configuration.timeout = 7000;
+        int timeout = 10000;
+        log.debug(String.format("Timeout is %s", timeout));
+        Configuration.timeout = timeout;
     }
 
     private void setHeadless() {

@@ -11,10 +11,10 @@ public class StartPage extends BasePage {
 
     public static final String URL = "https://qase.io/";
 
-    public static final By LOGIN_BUTTON_ID = By.id("signin");
+    public static final By LOGIN_BUTTON_LOCATOR = By.id("signin");
 
     public LoginPage clickOnLoginButton() {
-        clickOnButton(LOGIN_BUTTON_ID, LOGIN_BUTTON);
+        clickOnButton(LOGIN_BUTTON_LOCATOR, LOGIN_BUTTON);
         return new LoginPage();
     }
 
@@ -26,7 +26,7 @@ public class StartPage extends BasePage {
 
     @Override
     public StartPage isPageOpened() {
-        isPageOpened(LOGIN_BUTTON_ID, START_PAGE);
+        isPageOpened(LOGIN_BUTTON_LOCATOR, START_PAGE);
         return this;
     }
 }
