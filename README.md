@@ -5,3 +5,5 @@ December 2020
 https://qase.io/
 https://developers.qase.io/#introduction
 
+circleci:
+https://app.circleci.com/pipelines/github/MikhailKlimentyev/QaseDiploma
