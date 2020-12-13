@@ -27,7 +27,7 @@ public class CreateProjectSteps {
     @Step("Create private {project}")
     public ProjectSteps createPrivateProject(Project project) {
         createProjectPage
-                .enterNewProjectFields(project.getProjectName(), project.getDescription())
+                .fillNewProjectFields(project.getProjectName(), project.getDescription())
                 .clickOnCreateProjectButton();
         return new ProjectSteps();
     }

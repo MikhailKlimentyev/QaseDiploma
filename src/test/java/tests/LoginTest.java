@@ -1,6 +1,7 @@
 package tests;
 
 import io.qameta.allure.Feature;
+import models.User;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -27,7 +28,7 @@ public class LoginTest extends BaseTest {
     public void userShouldBeLoggedInAndProjectsPageShouldBeOpened() {
         loginSteps
                 .openPage()
-                .login(getEnvOrReadProperty(QASE_EMAIL_PROPERTY), getEnvOrReadProperty(QASE_PASSWORD_PROPERTY));
+                .login(validUser);
         boolean isProjectNameLabelDisplayed = projectsPage.isElementDisplayed(PROJECT_NAME_LABEL_LOCATOR);
         projectsSteps.projectNameLabelShouldBeDisplayed(isProjectNameLabelDisplayed);
         boolean isUserMenuDisplayed = projectsPage.isElementDisplayed(USER_MENU_LOCATOR);
@@ -37,9 +38,13 @@ public class LoginTest extends BaseTest {
     @Test(description = "Verify that error is be appeared on attempt to login with invalid credentials",
             dataProvider = "invalidEmailAndInvalidPasswordDataProvider")
     public void errorShouldBeAppearedOnAttemptLoginWithInvalidCredentials(String email, String password) {
+        User user = User.builder()
+                .email(email)
+                .password(password)
+                .build();
         loginSteps
                 .openPage()
-                .login(email, password);
+                .login(user);
         String errorMessage = loginPage.getErrorMessage();
         loginSteps.errorMessageShouldBeLike(errorMessage);
     }

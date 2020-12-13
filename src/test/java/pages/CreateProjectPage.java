@@ -17,7 +17,7 @@ public class CreateProjectPage extends BasePage {
     public static final By DESCRIPTION_TEXT_AREA_LOCATOR = By.id("inputDescription");
     public static final By CREATE_PROJECT_BUTTON_LOCATOR = By.xpath("//*[contains(text(), 'Create project')]");
 
-    public CreateProjectPage enterNewProjectFields(String projectName, String description) {
+    public CreateProjectPage fillNewProjectFields(String projectName, String description) {
         new Input(PROJECT_NAME_INPUT_LOCATOR, PROJECT_NAME_INPUT_LABEL).write(projectName);
         new TextArea(DESCRIPTION_TEXT_AREA_LOCATOR, DESCRIPTION_TEXT_AREA_LABEL).write(description);
         return this;

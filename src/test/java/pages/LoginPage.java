@@ -1,5 +1,6 @@
 package pages;
 
+import elements.Input;
 import org.openqa.selenium.By;
 import pages.base.BasePage;
 
@@ -14,13 +15,9 @@ public class LoginPage extends BasePage {
     public static final By LOGIN_BUTTON_LOCATOR = By.id("btnLogin");
     public static final By ERROR_MESSAGE_LOCATOR = By.className("form-control-feedback");
 
-    public LoginPage enterEmail(String text) {
-        enterText(EMAIL_INPUT_LOCATOR, EMAIL_INPUT, text);
-        return this;
-    }
-
-    public LoginPage enterPassword(String text) {
-        enterText(PASSWORD_INPUT_LOCATOR, PASSWORD_INPUT, text);
+    public LoginPage fillLoginFields(String email, String password) {
+        new Input(EMAIL_INPUT_LOCATOR, EMAIL_INPUT).write(email);
+        new Input(PASSWORD_INPUT_LOCATOR, PASSWORD_INPUT).write(password);
         return this;
     }
 

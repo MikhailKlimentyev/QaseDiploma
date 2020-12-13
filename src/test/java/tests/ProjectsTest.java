@@ -4,7 +4,7 @@ import io.qameta.allure.Feature;
 import models.Project;
 import org.testng.annotations.Test;
 
-import static models.Constants.*;
+import static models.Constants.SOME_PROJECT_DESCRIPTION_TEXT;
 import static models.ProjectAccessTypes.PRIVATE;
 import static pages.CreateProjectPage.PROJECT_NAME_LABEL_LOCATOR;
 
@@ -15,7 +15,7 @@ public class ProjectsTest extends BaseTest {
     public void newProjectShouldBeOpened() {
         loginSteps
                 .openPage()
-                .login(getEnvOrReadProperty(QASE_EMAIL_PROPERTY), getEnvOrReadProperty(QASE_PASSWORD_PROPERTY))
+                .login(validUser)
                 .createNewProject();
         boolean isProjectNameLabelDisplayed = createProjectPage.isElementDisplayed(PROJECT_NAME_LABEL_LOCATOR);
         createProjectSteps.projectNameLabelShouldBeDisplayed(isProjectNameLabelDisplayed);
@@ -25,7 +25,7 @@ public class ProjectsTest extends BaseTest {
     public void privateProjectShouldBeCreated() {
         loginSteps
                 .openPage()
-                .login(getEnvOrReadProperty(QASE_EMAIL_PROPERTY), getEnvOrReadProperty(QASE_PASSWORD_PROPERTY));
+                .login(validUser);
 
         String expectedProjectName = createProjectSteps.getProjectName();
         Project project = Project.builder()

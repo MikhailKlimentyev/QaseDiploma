@@ -2,6 +2,7 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import lombok.extern.log4j.Log4j2;
+import models.User;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
@@ -14,6 +15,8 @@ import tests.listeners.TestListener;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static models.Constants.QASE_EMAIL_PROPERTY;
+import static models.Constants.QASE_PASSWORD_PROPERTY;
 
 @Log4j2
 @Listeners({TestListener.class})
@@ -28,6 +31,8 @@ public class BaseTest {
     CreateProjectSteps createProjectSteps;
     ProjectPage projectPage;
     ProjectSteps projectSteps;
+
+    User validUser = getValidUser();
 
     @BeforeMethod
     public void setUp() {
@@ -83,7 +88,7 @@ public class BaseTest {
     }
 
     private void setHeadless() {
-        boolean isHeadless = false;
+        boolean isHeadless = true;
         log.debug(String.format("Headless is enabled %s", isHeadless));
         Configuration.headless = isHeadless;
     }
@@ -92,5 +97,12 @@ public class BaseTest {
         boolean holdBrowserOpen = true;
         log.debug(String.format("Hold browser open %s", holdBrowserOpen));
         Configuration.holdBrowserOpen = true;
+    }
+
+    private User getValidUser() {
+        return User.builder()
+                .email(getEnvOrReadProperty(QASE_EMAIL_PROPERTY))
+                .password(getEnvOrReadProperty(QASE_PASSWORD_PROPERTY))
+                .build();
     }
 }

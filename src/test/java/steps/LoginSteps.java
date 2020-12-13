@@ -1,6 +1,7 @@
 package steps;
 
 import io.qameta.allure.Step;
+import models.User;
 import org.testng.Assert;
 import pages.LoginPage;
 
@@ -22,11 +23,10 @@ public class LoginSteps {
         return this;
     }
 
-    @Step("Login with {email} email, {password} password")
-    public ProjectsSteps login(String email, String password) {
+    @Step("Login for {user}")
+    public ProjectsSteps login(User user) {
         loginPage
-                .enterEmail(email)
-                .enterPassword(password)
+                .fillLoginFields(user.getEmail(), user.getPassword())
                 .clickOnLoginButton();
         return new ProjectsSteps();
     }
