@@ -12,11 +12,11 @@ import pages.ProjectPage;
 import pages.ProjectsPage;
 import steps.*;
 import tests.listeners.TestListener;
-import utils.PropertyReader;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static models.Constants.QASE_EMAIL_PROPERTY;
 import static models.Constants.QASE_PASSWORD_PROPERTY;
+import static utils.PropertyReader.getProperty;
 
 @Log4j2
 @Listeners({TestListener.class})
@@ -39,6 +39,7 @@ public class BaseTest {
         setBrowser();
         setBrowserMaximized();
         setTimeout();
+        setPageLoadTimeout();
         setHeadless();
         setHoldBrowserOpen();
         createInstances();
@@ -46,15 +47,8 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void closeBrowser() {
-        log.debug("Driver is quited");
+        log.debug(String.format("%s driver is quited", getWebDriver()));
         getWebDriver().quit();
-    }
-
-    String getEnvOrReadProperty(String key) {
-        String propertyValue = System.getenv().getOrDefault(key, PropertyReader.getProperty(key));
-        log.debug(String.format("Getting property/environment variable with key '%s' and value '%s'",
-                key, propertyValue));
-        return propertyValue;
     }
 
     private void createInstances() {
@@ -82,9 +76,15 @@ public class BaseTest {
     }
 
     private void setTimeout() {
-        int timeout = 10000;
+        int timeout = 60000;
         log.debug(String.format("Timeout is %s", timeout));
         Configuration.timeout = timeout;
+    }
+
+    private void setPageLoadTimeout() {
+        int timeout = 60000;
+        log.debug(String.format("PageLoadTimeout is %s", timeout));
+        Configuration.pageLoadTimeout = timeout;
     }
 
     private void setHeadless() {
@@ -101,8 +101,8 @@ public class BaseTest {
 
     private User getValidUser() {
         return User.builder()
-                .email(getEnvOrReadProperty(QASE_EMAIL_PROPERTY))
-                .password(getEnvOrReadProperty(QASE_PASSWORD_PROPERTY))
+                .email(getProperty(QASE_EMAIL_PROPERTY, QASE_EMAIL_PROPERTY))
+                .password(getProperty(QASE_PASSWORD_PROPERTY, QASE_PASSWORD_PROPERTY))
                 .build();
     }
 }

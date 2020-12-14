@@ -9,8 +9,6 @@ import static models.Constants.START_PAGE;
 
 public class StartPage extends BasePage {
 
-    public static final String URL = "https://qase.io/";
-
     public static final By LOGIN_BUTTON_LOCATOR = By.id("signin");
 
     public LoginPage clickOnLoginButton() {
@@ -20,7 +18,7 @@ public class StartPage extends BasePage {
 
     @Override
     public StartPage openPage() {
-        openPage(START_PAGE, URL);
+        openPage(START_PAGE, START_URL);
         return this;
     }
 

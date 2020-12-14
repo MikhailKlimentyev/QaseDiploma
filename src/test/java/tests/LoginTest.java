@@ -10,6 +10,7 @@ import static models.Constants.QASE_PASSWORD_PROPERTY;
 import static pages.LoginPage.LOGIN_BUTTON_LOCATOR;
 import static pages.ProjectsPage.PROJECT_NAME_LABEL_LOCATOR;
 import static pages.ProjectsPage.USER_MENU_LOCATOR;
+import static utils.PropertyReader.getProperty;
 
 @Feature("Login")
 public class LoginTest extends BaseTest {
@@ -52,8 +53,8 @@ public class LoginTest extends BaseTest {
     @DataProvider(name = "invalidEmailAndInvalidPasswordDataProvider")
     public Object[][] invalidEmailAndInvalidPasswordDataProvider() {
         return new Object[][]{
-                {getEnvOrReadProperty(QASE_EMAIL_PROPERTY), "Invalid password"},
-                {"invalid@email.com", getEnvOrReadProperty(QASE_PASSWORD_PROPERTY)},
+                {getProperty(QASE_EMAIL_PROPERTY, QASE_EMAIL_PROPERTY), "Invalid password"},
+                {"invalid@email.com", getProperty(QASE_PASSWORD_PROPERTY, QASE_PASSWORD_PROPERTY)},
         };
     }
 }

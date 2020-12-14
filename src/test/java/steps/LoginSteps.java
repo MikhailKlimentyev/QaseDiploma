@@ -23,7 +23,7 @@ public class LoginSteps {
         return this;
     }
 
-    @Step("Login for {user}")
+    @Step("Login by {user}")
     public ProjectsSteps login(User user) {
         loginPage
                 .fillLoginFields(user.getEmail(), user.getPassword())
@@ -36,7 +36,7 @@ public class LoginSteps {
         Assert.assertTrue(isLoginFormDisplayed, "Login form is not displayed");
     }
 
-    @Step("Verify that {errorMessage} equals to " + INVALID_CREDENTIALS_ERROR_MESSAGE)
+    @Step("Verify that '{errorMessage}' equals to '" + INVALID_CREDENTIALS_ERROR_MESSAGE + "'")
     public void errorMessageShouldBeLike(String errorMessage) {
         Assert.assertEquals(errorMessage, INVALID_CREDENTIALS_ERROR_MESSAGE, "Error does not match to expected");
     }

@@ -8,7 +8,7 @@ import static models.Constants.*;
 
 public class LoginPage extends BasePage {
 
-    public static final String URL = "https://app.qase.io/login";
+    public static final String URL = String.format(URL_PATTERN, BASE_URL, "login");
 
     public static final By EMAIL_INPUT_LOCATOR = By.id("inputEmail");
     public static final By PASSWORD_INPUT_LOCATOR = By.id("inputPassword");

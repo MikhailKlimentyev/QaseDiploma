@@ -3,14 +3,13 @@ package pages;
 import elements.Input;
 import elements.TextArea;
 import org.openqa.selenium.By;
-import pages.base.AbstractPage;
 import pages.base.BasePage;
 
 import static models.Constants.*;
 
 public class CreateProjectPage extends BasePage {
 
-    public static final String URL = "https://app.qase.io/project/create";
+    public static final String URL = String.format(URL_PATTERN, BASE_URL, "project/create");
 
     public static final By PROJECT_NAME_LABEL_LOCATOR = By.cssSelector("[for='inputTitle']");
     public static final By PROJECT_NAME_INPUT_LOCATOR = By.id("inputTitle");
@@ -29,13 +28,13 @@ public class CreateProjectPage extends BasePage {
     }
 
     @Override
-    public AbstractPage openPage() {
+    public CreateProjectPage openPage() {
         openPage(CREATE_PROJECT_PAGE, URL);
         return this;
     }
 
     @Override
-    public AbstractPage isPageOpened() {
+    public CreateProjectPage isPageOpened() {
         isPageOpened(PROJECT_NAME_LABEL_LOCATOR, CREATE_PROJECT_PAGE);
         return this;
     }

@@ -1,10 +1,12 @@
 package utils;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
+@Log4j2
 public class PropertyReader {
 
     private static String propertiesPath = "/config.properties";
@@ -14,8 +16,21 @@ public class PropertyReader {
     private PropertyReader() {
     }
 
+    public static String getProperty(String envVariable, String propertyFromFile) {
+        String value = System.getenv().get(envVariable);
+        if (value != null) {
+            log.debug(String.format("Getting '%s' value of environment variable '%s'", value, envVariable));
+        } else {
+            value = getProperty(propertyFromFile);
+            log.debug(String.format("Getting '%s' value of property from file '%s'", value, propertyFromFile));
+        }
+        return value;
+    }
+
     public static String getProperty(String propertyName) {
-        return loadProperties().getProperty(propertyName);
+        String value = loadProperties().getProperty(propertyName);
+        log.debug(String.format("Getting '%s' value of property from file '%s'", value, propertyName));
+        return value;
     }
 
     private static String getCorrectPath() {

@@ -1,17 +1,17 @@
 package pages;
 
 import org.openqa.selenium.By;
-import pages.base.AbstractPage;
 import pages.base.BasePage;
 
 import static models.Constants.PROJECT_PAGE;
+import static models.Constants.URL_PATTERN;
 
 public class ProjectPage extends BasePage {
 
     public static final By PROJECT_NAME_LABEL_LOCATOR = By.className("header");
     public static final By CREATE_NEW_SUITE_BUTTON_LOCATOR = By.xpath("//*[contains(text(), 'Create new suite')]");
 
-    public static String urlPattern = "https://app.qase.io/project/%s";
+    public static String urlPattern = String.format(URL_PATTERN, BASE_URL, "project/%s");
     public static String url;
 
     public void setUrl(String code) {
@@ -23,13 +23,13 @@ public class ProjectPage extends BasePage {
     }
 
     @Override
-    public AbstractPage openPage() {
+    public ProjectPage openPage() {
         openPage(PROJECT_PAGE, url);
         return this;
     }
 
     @Override
-    public AbstractPage isPageOpened() {
+    public ProjectPage isPageOpened() {
         isPageOpened(CREATE_NEW_SUITE_BUTTON_LOCATOR, PROJECT_PAGE);
         return this;
     }

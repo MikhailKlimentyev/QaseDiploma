@@ -23,7 +23,9 @@ public final class Constants {
 
     public static final String SOME_PROJECT_DESCRIPTION_TEXT = "Some project description";
 
-    public static final int TIME_OUT = 100000;
+    public static final String URL_PATTERN = "%s/%s";
+
+    public static final int TIME_OUT = 60000;
 
     private Constants() {
         //private ctor
