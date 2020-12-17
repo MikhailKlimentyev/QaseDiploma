@@ -21,12 +21,12 @@ public class ProjectsSteps {
     }
 
     @Step("Verify that project name label with state {isProjectNameLabelDisplayed} is displayed")
-    public void projectNameLabelShouldBeDisplayed(boolean isProjectNameLabelDisplayed) {
+    public void validateProjectNameLabelIsDisplayed(boolean isProjectNameLabelDisplayed) {
         Assert.assertTrue(isProjectNameLabelDisplayed, "Project name label is not displayed");
     }
 
-    @Step("Verify that user menu with state {isUserMenuDisplayed} is displayed")
-    public void userMenuShouldBeDisplayed(boolean isUserMenuDisplayed) {
+    @Step("Verify that user menu is displayed with state {isUserMenuDisplayed} ")
+    public void validateUserMenuIsDisplayed(boolean isUserMenuDisplayed) {
         Assert.assertTrue(isUserMenuDisplayed, "User menu is not displayed");
     }
 }

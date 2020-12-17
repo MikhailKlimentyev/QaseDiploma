@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import factories.UserFactory;
 import lombok.extern.log4j.Log4j2;
 import models.User;
 import org.testng.annotations.AfterMethod;
@@ -10,13 +11,11 @@ import pages.CreateProjectPage;
 import pages.LoginPage;
 import pages.ProjectPage;
 import pages.ProjectsPage;
+import restassured.adapters.ProjectsAdapter;
 import steps.*;
 import tests.listeners.TestListener;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static models.Constants.QASE_EMAIL_PROPERTY;
-import static models.Constants.QASE_PASSWORD_PROPERTY;
-import static utils.PropertyReader.getProperty;
 
 @Log4j2
 @Listeners({TestListener.class})
@@ -31,8 +30,9 @@ public class BaseTest {
     CreateProjectSteps createProjectSteps;
     ProjectPage projectPage;
     ProjectSteps projectSteps;
+    ProjectsAdapter projectsAdapter;
 
-    User validUser = getValidUser();
+    User validUser = UserFactory.getValidUser();
 
     @BeforeMethod
     public void setUp() {
@@ -61,6 +61,7 @@ public class BaseTest {
         createProjectSteps = new CreateProjectSteps();
         projectPage = new ProjectPage();
         projectSteps = new ProjectSteps();
+        projectsAdapter = new ProjectsAdapter();
     }
 
     private void setBrowser() {
@@ -97,12 +98,5 @@ public class BaseTest {
         boolean holdBrowserOpen = true;
         log.debug(String.format("Hold browser open %s", holdBrowserOpen));
         Configuration.holdBrowserOpen = true;
-    }
-
-    private User getValidUser() {
-        return User.builder()
-                .email(getProperty(QASE_EMAIL_PROPERTY, QASE_EMAIL_PROPERTY))
-                .password(getProperty(QASE_PASSWORD_PROPERTY, QASE_PASSWORD_PROPERTY))
-                .build();
     }
 }
