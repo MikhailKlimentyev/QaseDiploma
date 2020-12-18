@@ -26,18 +26,19 @@ public class LoginSteps {
     @Step("Login by {user}")
     public ProjectsSteps login(User user) {
         loginPage
+                .openPage()
                 .fillLoginFields(user.getEmail(), user.getPassword())
                 .clickOnLoginButton();
         return new ProjectsSteps();
     }
 
-    @Step("Verify that login form is displayed {isLoginFormDisplayed}")
-    public void loginFormShouldBeDisplayed(boolean isLoginFormDisplayed) {
+    @Step("Verify that login form is displayed with actual state {isLoginFormDisplayed}")
+    public void validateLoginFormIsDisplayed(boolean isLoginFormDisplayed) {
         Assert.assertTrue(isLoginFormDisplayed, "Login form is not displayed");
     }
 
     @Step("Verify that '{errorMessage}' equals to '" + INVALID_CREDENTIALS_ERROR_MESSAGE + "'")
-    public void errorMessageShouldBeLike(String errorMessage) {
+    public void validateErrorMessage(String errorMessage) {
         Assert.assertEquals(errorMessage, INVALID_CREDENTIALS_ERROR_MESSAGE, "Error does not match to expected");
     }
 }

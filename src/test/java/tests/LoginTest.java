@@ -1,5 +1,6 @@
 package tests;
 
+import factories.UserFactory;
 import io.qameta.allure.Feature;
 import models.User;
 import org.testng.annotations.DataProvider;
@@ -21,7 +22,7 @@ public class LoginTest extends BaseTest {
                 .openPage()
                 .openLoginForm();
         boolean isLoginButtonDisplayed = loginPage.isElementDisplayed(LOGIN_BUTTON_LOCATOR);
-        loginSteps.loginFormShouldBeDisplayed(isLoginButtonDisplayed);
+        loginSteps.validateLoginFormIsDisplayed(isLoginButtonDisplayed);
     }
 
     @Test(description = "Verify that user should is logged in and projects page is be opened on attempt" +
@@ -31,23 +32,20 @@ public class LoginTest extends BaseTest {
                 .openPage()
                 .login(validUser);
         boolean isProjectNameLabelDisplayed = projectsPage.isElementDisplayed(PROJECT_NAME_LABEL_LOCATOR);
-        projectsSteps.projectNameLabelShouldBeDisplayed(isProjectNameLabelDisplayed);
+        projectsSteps.validateProjectNameLabelIsDisplayed(isProjectNameLabelDisplayed);
         boolean isUserMenuDisplayed = projectsPage.isElementDisplayed(USER_MENU_LOCATOR);
-        projectsSteps.userMenuShouldBeDisplayed(isUserMenuDisplayed);
+        projectsSteps.validateUserMenuIsDisplayed(isUserMenuDisplayed);
     }
 
     @Test(description = "Verify that error is be appeared on attempt to login with invalid credentials",
             dataProvider = "invalidEmailAndInvalidPasswordDataProvider")
     public void errorShouldBeAppearedOnAttemptLoginWithInvalidCredentials(String email, String password) {
-        User user = User.builder()
-                .email(email)
-                .password(password)
-                .build();
+        User user = UserFactory.getUser(email, password);
         loginSteps
                 .openPage()
                 .login(user);
         String errorMessage = loginPage.getErrorMessage();
-        loginSteps.errorMessageShouldBeLike(errorMessage);
+        loginSteps.validateErrorMessage(errorMessage);
     }
 
     @DataProvider(name = "invalidEmailAndInvalidPasswordDataProvider")

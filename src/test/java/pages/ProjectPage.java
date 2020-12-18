@@ -3,8 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import pages.base.BasePage;
 
-import static models.Constants.PROJECT_PAGE;
-import static models.Constants.URL_PATTERN;
+import static models.Constants.*;
 
 public class ProjectPage extends BasePage {
 
@@ -20,6 +19,11 @@ public class ProjectPage extends BasePage {
 
     public String getProjectName() {
         return getTextOfElement(PROJECT_NAME_LABEL_LOCATOR);
+    }
+
+    public CreateProjectPage clickOnCreateNewSuiteButton() {
+        clickOnButton(CREATE_NEW_SUITE_BUTTON_LOCATOR, CREATE_NEW_SUITE_BUTTON);
+        return new CreateProjectPage();
     }
 
     @Override

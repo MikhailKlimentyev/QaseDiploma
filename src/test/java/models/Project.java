@@ -7,8 +7,9 @@ import lombok.Data;
 @Builder
 public class Project {
 
-    private String projectName;
-    private String projectCode;
+    private String title;
+    private String code;
     private String description;
-    private ProjectAccessTypes projectAccessType;
+    private Access access;
+    private String group;
 }
