@@ -12,9 +12,7 @@ public class ProjectsTest extends BaseTest {
 
     @Test(description = "Verify that new project is opened after clicking on 'Create new project' button")
     public void newProjectShouldBeOpened() {
-        loginSteps
-                .openPage()
-                .login(validUser)
+        loginSteps.safelyLogin(validUser)
                 .createNewProject();
         boolean isProjectNameLabelDisplayed = createProjectPage.isElementDisplayed(PROJECT_NAME_LABEL_LOCATOR);
         createProjectSteps.validateProjectNameLabelIsDisplayed(isProjectNameLabelDisplayed);
@@ -22,9 +20,7 @@ public class ProjectsTest extends BaseTest {
 
     @Test(description = "Verify that private project is created")
     public void privateProjectShouldBeCreated() {
-        loginSteps
-                .openPage()
-                .login(validUser);
+        loginSteps.safelyLogin(validUser);
 
         Project project = ProjectFactory.getProject();
         String expectedProjectName = project.getTitle();

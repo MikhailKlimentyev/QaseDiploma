@@ -7,15 +7,13 @@ import models.User;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-import pages.CreateProjectPage;
-import pages.LoginPage;
-import pages.ProjectPage;
-import pages.ProjectsPage;
+import pages.*;
 import restassured.adapters.ProjectsAdapter;
 import steps.*;
 import tests.listeners.TestListener;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static models.Constants.IMPLICITLY_WAIT_TIME_OUT;
 
 @Log4j2
 @Listeners({TestListener.class})
@@ -31,6 +29,8 @@ public class BaseTest {
     ProjectPage projectPage;
     ProjectSteps projectSteps;
     ProjectsAdapter projectsAdapter;
+    CreateSuiteSteps createSuiteSteps;
+    CreateSuitePage createSuitePage;
 
     User validUser = UserFactory.getValidUser();
 
@@ -62,6 +62,8 @@ public class BaseTest {
         projectPage = new ProjectPage();
         projectSteps = new ProjectSteps();
         projectsAdapter = new ProjectsAdapter();
+        createSuitePage = new CreateSuitePage();
+        createSuiteSteps = new CreateSuiteSteps();
     }
 
     private void setBrowser() {
@@ -77,19 +79,19 @@ public class BaseTest {
     }
 
     private void setTimeout() {
-        int timeout = 60000;
+        int timeout = IMPLICITLY_WAIT_TIME_OUT;
         log.debug(String.format("Timeout is %s", timeout));
         Configuration.timeout = timeout;
     }
 
     private void setPageLoadTimeout() {
-        int timeout = 60000;
+        int timeout = IMPLICITLY_WAIT_TIME_OUT;
         log.debug(String.format("PageLoadTimeout is %s", timeout));
         Configuration.pageLoadTimeout = timeout;
     }
 
     private void setHeadless() {
-        boolean isHeadless = true;
+        boolean isHeadless = false;
         log.debug(String.format("Headless is enabled %s", isHeadless));
         Configuration.headless = isHeadless;
     }

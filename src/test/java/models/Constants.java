@@ -15,7 +15,11 @@ public final class Constants {
     public static final String CREATE_NEW_PROJECT_BUTTON = "CreateNewProject";
     public static final String CREATE_NEW_SUITE_BUTTON = "CreateNewSuite";
     public static final String CREATE_PROJECT_BUTTON = "CreateProject";
+    public static final String CREATE_SUITE_BUTTON = "CreateSuite";
     public static final String PROJECT_NAME_INPUT_LABEL = "Project name";
+    public static final String SUITE_NAME_INPUT_LABEL = "Suite name";
+    public static final String SUITE_DESCRIPTION_TEXT_AREA_LABEL = "Suite description";
+    public static final String SUITE_PRECONDITIONS_TEXT_AREA_LABEL = "Suite preconditions";
     public static final String DESCRIPTION_TEXT_AREA_LABEL = "Description";
 
     public static final String QASE_EMAIL_PROPERTY = "QaseEmail";
@@ -30,7 +34,8 @@ public final class Constants {
 
     public static final String URL_PATTERN = "%s/%s";
 
-    public static final int TIME_OUT = 60000;
+    public static final int IMPLICITLY_WAIT_TIME_OUT = 15000;
+    public static final int EXPLICITLY_TIME_OUT = 30000;
 
     private Constants() {
         //private ctor

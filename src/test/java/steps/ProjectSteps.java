@@ -38,4 +38,9 @@ public class ProjectSteps {
     public void validateCreateSuitePageIsOpened(boolean isCreateSuitePageDisplayed) {
         Assert.assertTrue(isCreateSuitePageDisplayed, "Create suite page is not opened");
     }
+
+    @Step("Verify that suite name is displayed with actual state {isSuiteNameDisplayed}")
+    public void validateSuiteNameIsDisplayed(boolean isSuiteNameDisplayed) {
+        Assert.assertTrue(isSuiteNameDisplayed, "Suite name is not displayed");
+    }
 }

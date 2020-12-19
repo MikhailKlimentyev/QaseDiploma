@@ -28,9 +28,7 @@ public class LoginTest extends BaseTest {
     @Test(description = "Verify that user should is logged in and projects page is be opened on attempt" +
             " to login with valid credentials")
     public void userShouldBeLoggedInAndProjectsPageShouldBeOpened() {
-        loginSteps
-                .openPage()
-                .login(validUser);
+        loginSteps.safelyLogin(validUser);
         boolean isProjectNameLabelDisplayed = projectsPage.isElementDisplayed(PROJECT_NAME_LABEL_LOCATOR);
         projectsSteps.validateProjectNameLabelIsDisplayed(isProjectNameLabelDisplayed);
         boolean isUserMenuDisplayed = projectsPage.isElementDisplayed(USER_MENU_LOCATOR);

@@ -32,6 +32,13 @@ public class LoginSteps {
         return new ProjectsSteps();
     }
 
+    @Step("Login by {user}")
+    public ProjectsSteps safelyLogin(User user) {
+        return this
+                .openPage()
+                .login(user);
+    }
+
     @Step("Verify that login form is displayed with actual state {isLoginFormDisplayed}")
     public void validateLoginFormIsDisplayed(boolean isLoginFormDisplayed) {
         Assert.assertTrue(isLoginFormDisplayed, "Login form is not displayed");
