@@ -10,11 +10,13 @@ public class TextArea extends Element {
         super(locator, label);
     }
 
+    @Override
     public void write(String text) {
         log.info(String.format("Writing text '%s' into TextArea with label '%s'", text, label));
         super.write(text);
     }
 
+    @Override
     public void writeViaJs(String text) {
         log.info(String.format("Writing text '%s' into TextArea with label '%s'", text, label));
         super.writeViaJs(text);

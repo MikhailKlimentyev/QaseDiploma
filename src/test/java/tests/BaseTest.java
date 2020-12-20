@@ -30,7 +30,9 @@ public class BaseTest {
     ProjectSteps projectSteps;
     ProjectsAdapter projectsAdapter;
     CreateSuiteSteps createSuiteSteps;
-    CreateSuitePage createSuitePage;
+    CreateSuiteModal createSuitePage;
+    CreateTestCasePage createTestCasePage;
+    CreateTestCaseSteps createTestCaseSteps;
 
     User validUser = UserFactory.getValidUser();
 
@@ -62,8 +64,10 @@ public class BaseTest {
         projectPage = new ProjectPage();
         projectSteps = new ProjectSteps();
         projectsAdapter = new ProjectsAdapter();
-        createSuitePage = new CreateSuitePage();
+        createSuitePage = new CreateSuiteModal();
         createSuiteSteps = new CreateSuiteSteps();
+        createTestCasePage = new CreateTestCasePage();
+        createTestCaseSteps = new CreateTestCaseSteps();
     }
 
     private void setBrowser() {
@@ -91,7 +95,7 @@ public class BaseTest {
     }
 
     private void setHeadless() {
-        boolean isHeadless = false;
+        boolean isHeadless = true;
         log.debug(String.format("Headless is enabled %s", isHeadless));
         Configuration.headless = isHeadless;
     }

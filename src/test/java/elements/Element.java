@@ -6,12 +6,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import utils.ElementUtils;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static models.Constants.EXPLICITLY_TIME_OUT;
+import static models.Constants.EXPLICITLY_WAIT_TIME_OUT;
 
 public abstract class Element {
 
-    By locator;
-    String label;
+    public By locator;
+    public String label;
+
+    public Element(String label) {
+        this.label = label;
+    }
 
     public Element(By locator, String label) {
         this.locator = locator;
@@ -19,12 +23,16 @@ public abstract class Element {
     }
 
     void write(String text) {
-        new ElementUtils().findVisibleElement(locator, EXPLICITLY_TIME_OUT).sendKeys(text);
+        new ElementUtils().findVisibleElement(locator, EXPLICITLY_WAIT_TIME_OUT).sendKeys(text);
     }
 
     void writeViaJs(String text) {
-        SelenideElement visibleElement = new ElementUtils().findVisibleElement(locator, EXPLICITLY_TIME_OUT);
+        SelenideElement visibleElement = new ElementUtils().findVisibleElement(locator, EXPLICITLY_WAIT_TIME_OUT);
         ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].CodeMirror.setValue('" + text + "');",
                 visibleElement);
+    }
+
+    void set(String text) {
+        new ElementUtils().findVisibleElement(locator, EXPLICITLY_WAIT_TIME_OUT).setValue(text).pressEnter();
     }
 }

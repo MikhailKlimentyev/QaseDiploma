@@ -28,19 +28,27 @@ public class ProjectSteps {
         return new CreateProjectSteps();
     }
 
+    @Step("Click on create new case button")
+    public CreateTestCaseSteps clickOnCreateNewCaseButton() {
+        projectPage
+                .clickOnCreateNewCaseButton()
+                .isPageOpened();
+        return new CreateTestCaseSteps();
+    }
+
     @Step("Verify that project name equals to {expectedProjectName}")
     public void validateProjectName(String actualProjectName, String expectedProjectName) {
         Assert.assertEquals(actualProjectName, expectedProjectName,
                 "Project name does not match to expected");
     }
 
-    @Step("Verify that create suite page is opened with actual state {isCreateSuitePageDisplayed}")
-    public void validateCreateSuitePageIsOpened(boolean isCreateSuitePageDisplayed) {
-        Assert.assertTrue(isCreateSuitePageDisplayed, "Create suite page is not opened");
-    }
-
     @Step("Verify that suite name is displayed with actual state {isSuiteNameDisplayed}")
     public void validateSuiteNameIsDisplayed(boolean isSuiteNameDisplayed) {
         Assert.assertTrue(isSuiteNameDisplayed, "Suite name is not displayed");
+    }
+
+    @Step("Verify that test case name is displayed with actual state {isTestCaseNameDisplayed}")
+    public void validateTestCaseNameIsDisplayed(boolean isTestCaseNameDisplayed) {
+        Assert.assertTrue(isTestCaseNameDisplayed, "Test case name is not displayed");
     }
 }

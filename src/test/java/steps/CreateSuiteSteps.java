@@ -2,29 +2,21 @@ package steps;
 
 import io.qameta.allure.Step;
 import models.Suite;
-import pages.CreateSuitePage;
+import pages.CreateSuiteModal;
 
 public class CreateSuiteSteps {
 
-    private CreateSuitePage createSuitePage;
+    private CreateSuiteModal createSuitePage;
 
     public CreateSuiteSteps() {
-        this.createSuitePage = new CreateSuitePage();
-    }
-
-    @Step("Open create suite page")
-    public CreateSuiteSteps openPage() {
-        createSuitePage
-                .openPage()
-                .isPageOpened();
-        return new CreateSuiteSteps();
+        this.createSuitePage = new CreateSuiteModal();
     }
 
     @Step("Create suite {suite}")
     public ProjectSteps createSuite(Suite suite) {
         createSuitePage
                 .fillInNewSuiteFields(suite)
-                .clickOnCreateSuiteButton();
+                .clickOnCreateButton();
         return new ProjectSteps();
     }
 }
