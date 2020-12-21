@@ -1,13 +1,13 @@
-package models;
+package models.enums;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum Access {
+public enum Accesses {
 
     @SerializedName("all")
-    ALL(),
+    ALL,
     @SerializedName("group")
-    GROUP(),
+    GROUP,
     @SerializedName("none")
-    NONE();
+    NONE;
 }

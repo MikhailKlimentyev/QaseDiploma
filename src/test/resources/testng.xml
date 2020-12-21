@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Qase tests">
+<suite name="Qase tests" parallel="tests" thread-count="4">
     <listeners>
         <listener class-name="tests.listeners.AnnotationTransformer"/>
     </listeners>
@@ -8,6 +8,21 @@
     <test name="Login test">
         <classes>
             <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Projects test">
+        <classes>
+            <class name="tests.ProjectsTest"/>
+        </classes>
+    </test>
+    <test name="Suite test">
+        <classes>
+            <class name="tests.SuiteTest"/>
+        </classes>
+    </test>
+    <test name="Test Cases test">
+        <classes>
+            <class name="tests.TestCaseTest"/>
         </classes>
     </test>
 </suite>

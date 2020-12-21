@@ -18,7 +18,7 @@ import static models.Constants.*;
 
 public class BaseAdapter {
 
-    private static final String TOKEN = PropertyReader.getProperty("Token");
+    private static final String TOKEN = PropertyReader.getProperty(TOKEN_PROPERTY, TOKEN_PROPERTY);
     private static final String URL = PropertyReader.getProperty("ApiUrl");
     private static final int RESPONSE_TIMEOUT = Integer.parseInt(PropertyReader.getProperty("ResponseTimeout"));
 

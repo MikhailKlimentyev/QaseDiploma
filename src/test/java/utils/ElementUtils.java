@@ -14,4 +14,9 @@ public class ElementUtils {
         log.debug(String.format("Waiting for element with locator '%s' is visible", locator));
         return $(locator).waitUntil(Condition.visible, timeOut);
     }
+
+    public SelenideElement findElement(By locator, int timeOut) {
+        log.debug(String.format("Waiting for element with locator '%s' is existed in DOM", locator));
+        return $(locator).waitUntil(Condition.exist, timeOut);
+    }
 }

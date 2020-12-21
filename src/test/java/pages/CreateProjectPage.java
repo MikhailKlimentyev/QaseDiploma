@@ -2,6 +2,7 @@ package pages;
 
 import elements.Input;
 import elements.TextArea;
+import models.Project;
 import org.openqa.selenium.By;
 import pages.base.BasePage;
 
@@ -16,9 +17,9 @@ public class CreateProjectPage extends BasePage {
     public static final By DESCRIPTION_TEXT_AREA_LOCATOR = By.id("inputDescription");
     public static final By CREATE_PROJECT_BUTTON_LOCATOR = By.xpath("//*[contains(text(), 'Create project')]");
 
-    public CreateProjectPage fillNewProjectFields(String projectName, String description) {
-        new Input(PROJECT_NAME_INPUT_LOCATOR, PROJECT_NAME_INPUT_LABEL).write(projectName);
-        new TextArea(DESCRIPTION_TEXT_AREA_LOCATOR, DESCRIPTION_TEXT_AREA_LABEL).write(description);
+    public CreateProjectPage fillInNewProjectFields(Project project) {
+        new Input(PROJECT_NAME_INPUT_LOCATOR, PROJECT_NAME_INPUT_LABEL).write(project.getTitle());
+        new TextArea(DESCRIPTION_TEXT_AREA_LOCATOR, DESCRIPTION_TEXT_AREA_LABEL).write(project.getDescription());
         return this;
     }
 

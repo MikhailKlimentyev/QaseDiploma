@@ -10,6 +10,7 @@ public class Input extends Element {
         super(locator, label);
     }
 
+    @Override
     public void write(String text) {
         log.info(String.format("Writing text '%s' into Input with label '%s'", text, label));
         super.write(text);

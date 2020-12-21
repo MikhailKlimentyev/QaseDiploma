@@ -4,7 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import models.Project;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import static models.Access.NONE;
+import static models.enums.Accesses.NONE;
 
 @Log4j2
 public class ProjectFactory {
