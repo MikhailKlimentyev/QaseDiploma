@@ -42,7 +42,7 @@ public class CreateTestCasePage extends BasePage {
     }
 
     public CreateTestCasePage clickOnAddStepButton() {
-        clickOnButton(ADD_STEP_BUTTON_LOCATOR, CASE_ADD_STEP_BUTTON);
+        clickViaJsOnButton(ADD_STEP_BUTTON_LOCATOR, CASE_ADD_STEP_BUTTON);
         return this;
     }
 

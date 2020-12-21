@@ -1,6 +1,7 @@
 package pages.base;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import utils.ElementUtils;
@@ -42,6 +43,13 @@ public abstract class AbstractPage {
     public String getTextOfElement(By locator) {
         log.debug(String.format("Getting text for element with locator '%s'", locator));
         return new ElementUtils().findVisibleElement(locator, EXPLICITLY_WAIT_TIME_OUT).getText();
+    }
+
+    public void clickViaJsOnButton(By locator, String elementName) {
+        log.info(String.format("Clicking via JS on %s button", elementName));
+        Configuration.clickViaJs = true;
+        click(locator);
+        Configuration.clickViaJs = false;
     }
 
     private void click(By locator) {
