@@ -45,6 +45,7 @@ public final class Constants {
 
     public static final String QASE_EMAIL_PROPERTY = "QaseEmail";
     public static final String QASE_PASSWORD_PROPERTY = "QasePassword";
+    public static final String TOKEN_PROPERTY = "Token";
 
     public static final String HTTP_CONNECTION_MANAGER_TIMEOUT = "http.connection-manager.timeout";
     public static final String HTTP_CONNECTION_TIMEOUT = "http.connection.timeout";
