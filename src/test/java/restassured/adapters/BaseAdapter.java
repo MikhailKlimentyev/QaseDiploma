@@ -15,6 +15,7 @@ import utils.PropertyReader;
 import java.io.ByteArrayOutputStream;
 
 import static models.Constants.*;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class BaseAdapter {
 
@@ -31,8 +32,20 @@ public class BaseAdapter {
                 .when()
                 .post(uri)
                 .then()
+                .statusCode(SC_OK)
                 .log().all()
-                .statusCode(200)
+                .extract().response();
+    }
+
+    public Response get(String uri, int limit) {
+        return getDefaultSpecification()
+                .param("limit", limit)
+                .log().all()
+                .when()
+                .get(URL + uri)
+                .then()
+                .statusCode(SC_OK)
+                .log().all()
                 .extract().response();
     }
 

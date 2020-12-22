@@ -26,8 +26,9 @@ public class ProjectPage extends BasePage {
         return By.xpath(String.format(testCaseNamePattern, testCaseName));
     }
 
-    public void setUrl(String code) {
+    public ProjectPage setUrl(String code) {
         url = String.format(urlPattern, code);
+        return this;
     }
 
     public void setSuiteName(String suiteName) {

@@ -4,8 +4,10 @@ import com.codeborne.selenide.Configuration;
 import factories.UserFactory;
 import lombok.extern.log4j.Log4j2;
 import models.User;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 import pages.*;
 import restassured.adapters.ProjectsAdapter;
@@ -14,6 +16,7 @@ import tests.listeners.TestListener;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static models.Constants.IMPLICITLY_WAIT_TIME_OUT;
+import static models.Constants.PROJECT_NAME_PREFIX;
 
 @Log4j2
 @Listeners({TestListener.class})
@@ -33,24 +36,44 @@ public class BaseTest {
     CreateSuiteModal createSuitePage;
     CreateTestCasePage createTestCasePage;
     CreateTestCaseSteps createTestCaseSteps;
+    DeleteProjectSteps deleteProjectSteps;
 
     User validUser = UserFactory.getValidUser();
 
+    @BeforeSuite
+    public void deleteProjectsByPrefix() {
+        configureSelenide();
+        deleteProjectSteps = new DeleteProjectSteps();
+        loginSteps = new LoginSteps();
+        loginSteps.safelyLogin(validUser);
+        deleteProjectSteps.deleteProjects(PROJECT_NAME_PREFIX);
+        closeBrowser();
+    }
+
     @BeforeMethod
     public void setUp() {
+        configureSelenide();
+        createInstances();
+    }
+
+    private void configureSelenide() {
         setBrowser();
         setBrowserMaximized();
         setTimeout();
         setPageLoadTimeout();
         setHeadless();
         setHoldBrowserOpen();
-        createInstances();
     }
 
     @AfterMethod(alwaysRun = true)
     public void closeBrowser() {
-        log.debug(String.format("%s driver is quited", getWebDriver()));
-        getWebDriver().quit();
+        try {
+            WebDriver webDriver = getWebDriver();
+            log.debug(String.format("%s driver is quited", webDriver));
+            webDriver.quit();
+        } catch (IllegalStateException e) {
+            log.debug(e);
+        }
     }
 
     private void createInstances() {
@@ -103,6 +126,6 @@ public class BaseTest {
     private void setHoldBrowserOpen() {
         boolean holdBrowserOpen = true;
         log.debug(String.format("Hold browser open %s", holdBrowserOpen));
-        Configuration.holdBrowserOpen = true;
+        Configuration.holdBrowserOpen = holdBrowserOpen;
     }
 }

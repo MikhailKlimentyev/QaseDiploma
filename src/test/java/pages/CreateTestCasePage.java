@@ -22,8 +22,9 @@ public class CreateTestCasePage extends BasePage {
     public static String urlPattern = String.format(URL_PATTERN, BASE_URL, "case/%s/create");
     public static String url;
 
-    public void setUrl(String code) {
+    public CreateTestCasePage setUrl(String code) {
         url = String.format(urlPattern, code);
+        return this;
     }
 
     public CreateTestCasePage fillInNewTestCaseFields(TestCase testCase) {
