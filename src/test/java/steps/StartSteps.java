@@ -6,9 +6,11 @@ import pages.StartPage;
 public class StartSteps {
 
     private StartPage startPage;
+    private DeleteProjectSteps deleteProjectSteps;
 
-    public StartSteps() {
+    public StartSteps(DeleteProjectSteps deleteProjectSteps) {
         startPage = new StartPage();
+        this.deleteProjectSteps = deleteProjectSteps;
     }
 
     @Step("Open start page")
@@ -23,6 +25,6 @@ public class StartSteps {
     public LoginSteps openLoginForm() {
         startPage
                 .clickOnLoginButton();
-        return new LoginSteps();
+        return new LoginSteps(deleteProjectSteps);
     }
 }

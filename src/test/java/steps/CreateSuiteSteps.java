@@ -7,9 +7,11 @@ import pages.CreateSuiteModal;
 public class CreateSuiteSteps {
 
     private CreateSuiteModal createSuiteModal;
+    private DeleteProjectSteps deleteProjectSteps;
 
-    public CreateSuiteSteps() {
+    public CreateSuiteSteps(DeleteProjectSteps deleteProjectSteps) {
         this.createSuiteModal = new CreateSuiteModal();
+        this.deleteProjectSteps = deleteProjectSteps;
     }
 
     @Step("Create suite {suite}")
@@ -17,6 +19,6 @@ public class CreateSuiteSteps {
         createSuiteModal
                 .fillInNewSuiteFields(suite)
                 .clickOnCreateButton();
-        return new ProjectSteps();
+        return new ProjectSteps(deleteProjectSteps);
     }
 }

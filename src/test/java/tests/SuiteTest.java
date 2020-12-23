@@ -15,8 +15,8 @@ public class SuiteTest extends BaseTest {
     public void suiteShouldBeCreated() {
         loginSteps.safelyLogin(validUser);
 
-        String code = createProjectSteps.createProject();
-        projectPage.setUrl(code);
+        String projectCode = createProjectSteps.createProject();
+        projectPage.setUrl(projectCode);
 
         projectSteps
                 .openPage()

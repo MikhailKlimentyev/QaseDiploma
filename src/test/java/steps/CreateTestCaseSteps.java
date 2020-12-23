@@ -5,16 +5,15 @@ import models.StepToReproduce;
 import models.TestCase;
 import org.testng.Assert;
 import pages.CreateTestCasePage;
-import pages.UploadAttachmentModal;
 
 public class CreateTestCaseSteps {
 
     private CreateTestCasePage createCasePage;
-    private UploadAttachmentModal uploadAttachmentModal;
+    private DeleteProjectSteps deleteProjectSteps;
 
-    public CreateTestCaseSteps() {
+    public CreateTestCaseSteps(DeleteProjectSteps deleteProjectSteps) {
         this.createCasePage = new CreateTestCasePage();
-        this.uploadAttachmentModal = new UploadAttachmentModal();
+        this.deleteProjectSteps = deleteProjectSteps;
     }
 
     @Step("Open create case page")
@@ -35,7 +34,7 @@ public class CreateTestCaseSteps {
                 .isPageOpened()
                 .uploadFile(fileName)
                 .clickOnSaveButton();
-        return new ProjectSteps();
+        return new ProjectSteps(deleteProjectSteps);
     }
 
     @Step("Verify that create test case page is opened with actual state {isCreateTestCasePageDisplayed}")

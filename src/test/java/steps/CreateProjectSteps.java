@@ -2,21 +2,26 @@ package steps;
 
 import factories.ProjectFactory;
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
 import models.Project;
 import org.testng.Assert;
 import pages.CreateProjectPage;
 import restassured.adapters.ProjectsAdapter;
 
+import static org.apache.http.HttpStatus.SC_OK;
+
 @Log4j2
 public class CreateProjectSteps {
 
     private CreateProjectPage createProjectPage;
     private ProjectsAdapter projectsAdapter;
+    private DeleteProjectSteps deleteProjectSteps;
 
-    public CreateProjectSteps() {
+    public CreateProjectSteps(DeleteProjectSteps deleteProjectSteps) {
         this.createProjectPage = new CreateProjectPage();
         this.projectsAdapter = new ProjectsAdapter();
+        this.deleteProjectSteps = deleteProjectSteps;
     }
 
     @Step("Open Create project page")
@@ -32,7 +37,9 @@ public class CreateProjectSteps {
         createProjectPage
                 .fillInNewProjectFields(project)
                 .clickOnCreateProjectButton();
-        return new ProjectSteps();
+        String projectCode = project.getTitle().toUpperCase().substring(0, 10);
+        deleteProjectSteps.addCode(projectCode);
+        return new ProjectSteps(deleteProjectSteps);
     }
 
     @Step("Create {project} using API")
@@ -48,6 +55,14 @@ public class CreateProjectSteps {
 
     @Step("Create {project} using API")
     private String createProjectUsingAPI(Project project) {
-        return projectsAdapter.create(project);
+        String projectCode = "";
+        Response response = projectsAdapter.create(project);
+        if (response.getStatusCode() == SC_OK) {
+            projectCode = response.getBody().path("result.code");
+            deleteProjectSteps.addCode(projectCode);
+            return projectCode;
+        }
+        Assert.fail(String.format("Project '%s' is not created", project));
+        return projectCode;
     }
 }
