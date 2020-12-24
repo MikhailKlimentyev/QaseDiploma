@@ -1,4 +1,4 @@
-Diploma for TMS course
+Diploma for TMS course:
 https://teachmeskills.by/kursy-programmirovaniya/qa-avtomatizirovannoe-testirovanie-online
 December 2020
 
@@ -7,3 +7,6 @@ https://developers.qase.io/#introduction
 
 circleci:
 https://app.circleci.com/pipelines/github/MikhailKlimentyev/QaseDiploma
+
+Run tests:
+mvn clean -DsuiteXmlFile=src/test/resources/testng.xml install

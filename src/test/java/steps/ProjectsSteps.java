@@ -7,9 +7,11 @@ import pages.ProjectsPage;
 public class ProjectsSteps {
 
     private ProjectsPage projectsPage;
+    private DeleteProjectSteps deleteProjectSteps;
 
-    public ProjectsSteps() {
+    public ProjectsSteps(DeleteProjectSteps deleteProjectSteps) {
         this.projectsPage = new ProjectsPage();
+        this.deleteProjectSteps = deleteProjectSteps;
     }
 
     @Step("Create new project")
@@ -17,7 +19,7 @@ public class ProjectsSteps {
         projectsPage
                 .clickOnCreateNewProjectButton()
                 .isPageOpened();
-        return new CreateProjectSteps();
+        return new CreateProjectSteps(deleteProjectSteps);
     }
 
     @Step("Verify that project name label with state {isProjectNameLabelDisplayed} is displayed")

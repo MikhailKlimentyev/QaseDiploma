@@ -6,17 +6,19 @@ import pages.CreateSuiteModal;
 
 public class CreateSuiteSteps {
 
-    private CreateSuiteModal createSuitePage;
+    private CreateSuiteModal createSuiteModal;
+    private DeleteProjectSteps deleteProjectSteps;
 
-    public CreateSuiteSteps() {
-        this.createSuitePage = new CreateSuiteModal();
+    public CreateSuiteSteps(DeleteProjectSteps deleteProjectSteps) {
+        this.createSuiteModal = new CreateSuiteModal();
+        this.deleteProjectSteps = deleteProjectSteps;
     }
 
     @Step("Create suite {suite}")
     public ProjectSteps createSuite(Suite suite) {
-        createSuitePage
+        createSuiteModal
                 .fillInNewSuiteFields(suite)
                 .clickOnCreateButton();
-        return new ProjectSteps();
+        return new ProjectSteps(deleteProjectSteps);
     }
 }

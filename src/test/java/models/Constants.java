@@ -9,6 +9,7 @@ public final class Constants {
     public static final String PROJECT_PAGE = "ProjectPage";
     public static final String CREATE_SUITE_PAGE = "CreateSuitePage";
     public static final String CREATE_TEST_CASE_PAGE = "CreateTestCasePage";
+    public static final String DELETE_PROJECT_PAGE = "DeleteProjectPage";
     public static final String UPLOAD_ATTACHMENT_MODAL = "UploadAttachmentModal";
 
     public static final String LOGIN_BUTTON = "Login";
@@ -43,9 +44,13 @@ public final class Constants {
     public static final String CASE_INPUT_DATA_INPUT_LABEL = "Input data";
     public static final String CASE_SAVE_BUTTON = "Save";
 
+    public static final String DELETE_PROJECT_BUTTON = "Delete project";
+
     public static final String QASE_EMAIL_PROPERTY = "QaseEmail";
     public static final String QASE_PASSWORD_PROPERTY = "QasePassword";
     public static final String TOKEN_PROPERTY = "Token";
+
+    public static final String PROJECT_NAME_PREFIX = "Q";
 
     public static final String HTTP_CONNECTION_MANAGER_TIMEOUT = "http.connection-manager.timeout";
     public static final String HTTP_CONNECTION_TIMEOUT = "http.connection.timeout";

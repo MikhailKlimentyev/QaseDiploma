@@ -32,7 +32,16 @@ public class BaseAdapter {
                 .post(uri)
                 .then()
                 .log().all()
-                .statusCode(200)
+                .extract().response();
+    }
+
+    public Response get(String uri) {
+        return getDefaultSpecification()
+                .log().all()
+                .when()
+                .get(URL + uri)
+                .then()
+                .log().all()
                 .extract().response();
     }
 

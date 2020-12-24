@@ -7,9 +7,11 @@ import pages.ProjectPage;
 public class ProjectSteps {
 
     private ProjectPage projectPage;
+    private DeleteProjectSteps deleteProjectSteps;
 
-    public ProjectSteps() {
+    public ProjectSteps(DeleteProjectSteps deleteProjectSteps) {
         this.projectPage = new ProjectPage();
+        this.deleteProjectSteps = deleteProjectSteps;
     }
 
     @Step("Open project page")
@@ -25,7 +27,7 @@ public class ProjectSteps {
         projectPage
                 .clickOnCreateNewSuiteButton()
                 .isPageOpened();
-        return new CreateProjectSteps();
+        return new CreateProjectSteps(deleteProjectSteps);
     }
 
     @Step("Click on create new case button")
@@ -33,7 +35,7 @@ public class ProjectSteps {
         projectPage
                 .clickOnCreateNewCaseButton()
                 .isPageOpened();
-        return new CreateTestCaseSteps();
+        return new CreateTestCaseSteps(deleteProjectSteps);
     }
 
     @Step("Verify that project name equals to {expectedProjectName}")

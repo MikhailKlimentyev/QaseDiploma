@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import models.Project;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import static models.Constants.PROJECT_NAME_PREFIX;
 import static models.enums.Accesses.NONE;
 
 @Log4j2
@@ -27,7 +28,7 @@ public class ProjectFactory {
     }
 
     private static String getProjectName() {
-        String projectName = "Q" + RandomStringUtils.randomAlphabetic(10);
+        String projectName = PROJECT_NAME_PREFIX + RandomStringUtils.randomAlphabetic(10);
         log.debug(String.format("Getting project name %s", projectName));
         return projectName;
     }
