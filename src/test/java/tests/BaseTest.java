@@ -12,6 +12,8 @@ import steps.*;
 import tests.listeners.TestListener;
 import utils.SelenideUtils;
 
+import java.util.List;
+
 import static models.Constants.PROJECT_NAME_PREFIX;
 
 @Log4j2
@@ -37,10 +39,13 @@ public class BaseTest {
 
     @BeforeSuite
     public void deleteProjectsByPrefix() {
-        selenideUtils.configureSelenide();
-        loginSteps.safelyLogin(validUser);
-        deleteProjectSteps.deleteProjects(PROJECT_NAME_PREFIX);
-        selenideUtils.closeBrowser();
+        List<String> projects = deleteProjectSteps.getFilteredProjectsCodesByPrefix(PROJECT_NAME_PREFIX);
+        if (!projects.isEmpty()) {
+            selenideUtils.configureSelenide();
+            loginSteps.safelyLogin(validUser);
+            deleteProjectSteps.deleteProjects(projects);
+            selenideUtils.closeBrowser();
+        }
     }
 
     @BeforeMethod

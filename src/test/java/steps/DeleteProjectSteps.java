@@ -16,9 +16,10 @@ import static org.apache.http.HttpStatus.SC_OK;
 @Log4j2
 public class DeleteProjectSteps {
 
-    private List<String> projectsCodes = new ArrayList<>();
     private DeleteProjectPage deleteProjectPage;
     private ProjectsAdapter projectsAdapter;
+
+    private List<String> projectsCodes = new ArrayList<>();
 
     public DeleteProjectSteps() {
         deleteProjectPage = new DeleteProjectPage();
@@ -31,12 +32,17 @@ public class DeleteProjectSteps {
         return size;
     }
 
-    @Step("Delete projects by {projectsCodesPrefix} prefix")
-    public void deleteProjects(String projectsCodesPrefix) {
-        log.info(String.format("Deleting projects with '%s' prefix", projectsCodesPrefix));
+    public List<String> getFilteredProjectsCodesByPrefix(String projectsCodesPrefix) {
         List<String> projectsCodes = getProjectsCodesUsingAPI();
-        List<String> filteredProjectsCodes = filterProjectsCodesByPrefix(projectsCodes, projectsCodesPrefix);
-        deleteProjects(filteredProjectsCodes);
+        log.debug(String.format("Getting filtered projects codes '%s' by prefix '%s'", projectsCodes.toString(),
+                projectsCodesPrefix));
+        return filterProjectsCodesByPrefix(projectsCodes, projectsCodesPrefix);
+    }
+
+    @Step("Delete projects with projects codes {projectsCodes}")
+    public void deleteProjects(List<String> projectsCodes) {
+        log.debug(String.format("Deleting projects with projects codes '%s'", projectsCodes.toString()));
+        projectsCodes.forEach(this::deleteProject);
     }
 
     @Step("Delete projects")
@@ -74,11 +80,6 @@ public class DeleteProjectSteps {
         return projectsCodes.stream()
                 .filter(code -> code.startsWith(projectsCodesPrefix))
                 .collect(Collectors.toList());
-    }
-
-    private void deleteProjects(List<String> projectsCodes) {
-        log.debug(String.format("Deleting projects codes '%s'", projectsCodes.toString()));
-        projectsCodes.forEach(this::deleteProject);
     }
 
     private void deleteProject(String projectCode) {
