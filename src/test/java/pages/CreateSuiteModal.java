@@ -14,6 +14,11 @@ public class CreateSuiteModal extends AbstractPage {
     public static final By SUITE_NAME_INPUT_LOCATOR = By.id("name");
     public static final By CREATE_BUTTON_LOCATOR = By.xpath("//*[text()='Create']");
 
+    public CreateSuiteModal fillInSuiteNameField(String title) {
+        new Input(SUITE_NAME_INPUT_LOCATOR, SUITE_NAME_INPUT_LABEL).write(title);
+        return this;
+    }
+
     public CreateSuiteModal fillInNewSuiteFields(Suite suite) {
         new Input(SUITE_NAME_INPUT_LOCATOR, SUITE_NAME_INPUT_LABEL).write(suite.getTitle());
         new ProseMirrorField(SUITE_DESCRIPTION_INPUT_LABEL).write(suite.getDescription());

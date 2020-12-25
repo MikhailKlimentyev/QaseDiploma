@@ -15,7 +15,7 @@ public class ComboBox extends Element {
 
     @Override
     public void set(String text) {
-        log.info(String.format("Set text '%s' into ComboBox with label '%s'", text, label));
-        super.set(text);
+        log.info(String.format("Entering text '%s' into ComboBox with label '%s'", text, label));
+        super.enter(text);
     }
 }

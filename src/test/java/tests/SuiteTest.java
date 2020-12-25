@@ -22,12 +22,34 @@ public class SuiteTest extends BaseTest {
                 .openPage()
                 .clickOnCreateNewSuiteButton();
 
-        Suite suite = SuiteFactory.getSuite();
+        String title = SuiteFactory.getSuite().getTitle();
+        createSuiteSteps
+                .createSuite(title);
+
+        projectPage.setSuiteName(title);
+        boolean isSuiteNameDisplayed = projectPage.isElementDisplayed(getSuiteNameLocator());
+        projectSteps.validateSuiteNameIsDisplayed(isSuiteNameDisplayed);
+    }
+
+    @Test(description = "Verify that all fields of created suite equals to specified values while creating suite")
+    public void allFieldsOfCreatedSuiteShouldBeAsSpecifiedOnes() {
+        loginSteps.safelyLogin(validUser);
+
+        String projectCode = createProjectSteps.createProject();
+        projectPage.setUrl(projectCode);
+
+        projectSteps
+                .openPage()
+                .clickOnCreateNewSuiteButton();
+
+        Suite suite = SuiteFactory.getSuiteWithAllFieldsFilled();
         createSuiteSteps
                 .createSuite(suite);
 
         projectPage.setSuiteName(suite.getTitle());
-        boolean isSuiteNameDisplayed = projectPage.isElementDisplayed(getSuiteNameLocator());
-        projectSteps.validateSuiteNameIsDisplayed(isSuiteNameDisplayed);
+        String actualSuiteNameText = projectPage.getSuiteNameText();
+        projectSteps.validateElementText(actualSuiteNameText, suite.getTitle());
+        String actualSuiteDescriptionText = projectPage.getSuiteDescriptionText();
+        projectSteps.validateElementText(actualSuiteDescriptionText, suite.getDescription());
     }
 }

@@ -10,6 +10,14 @@ public class SuiteFactory {
     public static Suite getSuite() {
         Suite suite = Suite.builder()
                 .title(getSuiteName())
+                .build();
+        log.debug(String.format("Getting suite %s", suite.toString()));
+        return suite;
+    }
+
+    public static Suite getSuiteWithAllFieldsFilled() {
+        Suite suite = Suite.builder()
+                .title(getSuiteName())
                 .description("Some description")
                 .preconditions("Some preconditions")
                 .build();
