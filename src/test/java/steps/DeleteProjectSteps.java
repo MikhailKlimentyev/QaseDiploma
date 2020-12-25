@@ -3,6 +3,7 @@ package steps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import pages.DeleteProjectPage;
 import restassured.adapters.ProjectsAdapter;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 import static org.apache.http.HttpStatus.SC_OK;
 
 @Log4j2
-public class DeleteProjectSteps {
+public class DeleteProjectSteps extends BaseSteps {
 
     private DeleteProjectPage deleteProjectPage;
     private ProjectsAdapter projectsAdapter;
@@ -59,8 +60,13 @@ public class DeleteProjectSteps {
 
     @Step("Add {projectCode} code into collection")
     public void addCode(String projectCode) {
-        log.debug(String.format("Adding project code '%s' to collection", projectCode));
-        projectsCodes.add(projectCode);
+        if (!StringUtils.isBlank(projectCode)) {
+            int statusCode = getProjectByCode(projectCode).getStatusCode();
+            if (statusCode == SC_OK) {
+                log.debug(String.format("Adding project code '%s' to collection", projectCode));
+                projectsCodes.add(projectCode);
+            }
+        }
     }
 
     private List<String> getProjectsCodesUsingAPI() {
@@ -83,7 +89,7 @@ public class DeleteProjectSteps {
     }
 
     private void deleteProject(String projectCode) {
-        int statusCode = projectsAdapter.getByCode(projectCode).getStatusCode();
+        int statusCode = getProjectByCode(projectCode).getStatusCode();
         if (statusCode == SC_OK) {
             log.debug(String.format("Deleting project with '%s' project code", projectCode));
             deleteProjectPage
@@ -91,5 +97,10 @@ public class DeleteProjectSteps {
                     .openPage()
                     .clickOnDeleteProjectButton();
         }
+    }
+
+    private Response getProjectByCode(String projectCode) {
+        log.debug(String.format("Getting project with '%s' project code", projectCode));
+        return projectsAdapter.getByCode(projectCode);
     }
 }

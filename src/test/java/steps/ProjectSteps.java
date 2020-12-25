@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 import pages.ProjectPage;
 
-public class ProjectSteps {
+public class ProjectSteps extends BaseSteps {
 
     private ProjectPage projectPage;
     private DeleteProjectSteps deleteProjectSteps;

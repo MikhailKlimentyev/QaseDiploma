@@ -28,6 +28,10 @@ public class CreateProjectPage extends BasePage {
         return new ProjectsPage();
     }
 
+    public String getProjectNameValidationMessage() {
+        return getValidationMessage(PROJECT_NAME_INPUT_LOCATOR);
+    }
+
     @Override
     public CreateProjectPage openPage() {
         openPage(CREATE_PROJECT_PAGE, URL);

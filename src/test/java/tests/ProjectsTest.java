@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import models.Project;
 import org.testng.annotations.Test;
 
+import static models.Constants.REQUIRED_FIELD_IS_NOT_FILLED_ERROR_MESSAGE;
 import static pages.CreateProjectPage.PROJECT_NAME_LABEL_LOCATOR;
 
 @Feature("Projects")
@@ -27,9 +28,23 @@ public class ProjectsTest extends BaseTest {
 
         createProjectSteps
                 .openPage()
-                .createPrivateProject(project);
+                .createProject(project);
 
         String actualProjectName = projectPage.getProjectName();
         projectSteps.validateProjectName(actualProjectName, expectedProjectName);
+    }
+
+    @Test(description = "Verify that validation message is appeared on attempt to create project with empty title")
+    public void validationMessageShouldBeAppearedOnAttemptToCreateProjectWithEmptyTitle() {
+        loginSteps.safelyLogin(validUser);
+
+        Project project = ProjectFactory.getProject();
+        project.setTitle("");
+
+        createProjectSteps
+                .openPage()
+                .createProject(project);
+        String validationMessage = createProjectPage.getProjectNameValidationMessage();
+        loginSteps.validateErrorMessage(validationMessage, REQUIRED_FIELD_IS_NOT_FILLED_ERROR_MESSAGE);
     }
 }

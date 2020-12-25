@@ -57,6 +57,10 @@ public final class Constants {
     public static final String HTTP_SOCKET_TIMEOUT = "http.socket.timeout";
 
     public static final String INVALID_CREDENTIALS_ERROR_MESSAGE = "These credentials do not match our records.";
+    public static final String EMAIL_DOT_PLACE_ERROR_MESSAGE = "'.' is used at a wrong position in '.com'.";
+    public static final String EMAIL_NOT_CONTAINING_SYMBOL_ERROR_MESSAGE =
+            "Please include an '@' in the email address. 'email' is missing an '@'.";
+    public static final String REQUIRED_FIELD_IS_NOT_FILLED_ERROR_MESSAGE = "Please fill out this field.";
 
     public static final String URL_PATTERN = "%s/%s";
 

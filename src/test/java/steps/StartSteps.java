@@ -3,7 +3,7 @@ package steps;
 import io.qameta.allure.Step;
 import pages.StartPage;
 
-public class StartSteps {
+public class StartSteps extends BaseSteps {
 
     private StartPage startPage;
     private DeleteProjectSteps deleteProjectSteps;

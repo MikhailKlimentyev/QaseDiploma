@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import models.Suite;
 import pages.CreateSuiteModal;
 
-public class CreateSuiteSteps {
+public class CreateSuiteSteps extends BaseSteps {
 
     private CreateSuiteModal createSuiteModal;
     private DeleteProjectSteps deleteProjectSteps;

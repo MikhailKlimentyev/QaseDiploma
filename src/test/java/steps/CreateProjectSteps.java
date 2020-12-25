@@ -12,7 +12,7 @@ import restassured.adapters.ProjectsAdapter;
 import static org.apache.http.HttpStatus.SC_OK;
 
 @Log4j2
-public class CreateProjectSteps {
+public class CreateProjectSteps extends BaseSteps {
 
     private CreateProjectPage createProjectPage;
     private ProjectsAdapter projectsAdapter;
@@ -32,12 +32,18 @@ public class CreateProjectSteps {
         return this;
     }
 
-    @Step("Create private {project}")
-    public ProjectSteps createPrivateProject(Project project) {
+    @Step("Create project {project}")
+    public ProjectSteps createProject(Project project) {
         createProjectPage
                 .fillInNewProjectFields(project)
                 .clickOnCreateProjectButton();
-        String projectCode = project.getTitle().toUpperCase().substring(0, 10);
+        String title = project.getTitle();
+        String projectCode;
+        if (title.length() >= 10) {
+            projectCode = project.getTitle().toUpperCase().substring(0, 10);
+        } else {
+            projectCode = project.getTitle();
+        }
         deleteProjectSteps.addCode(projectCode);
         return new ProjectSteps(deleteProjectSteps);
     }

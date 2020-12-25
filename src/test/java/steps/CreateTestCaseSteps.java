@@ -6,7 +6,7 @@ import models.TestCase;
 import org.testng.Assert;
 import pages.CreateTestCasePage;
 
-public class CreateTestCaseSteps {
+public class CreateTestCaseSteps extends BaseSteps {
 
     private CreateTestCasePage createCasePage;
     private DeleteProjectSteps deleteProjectSteps;
