@@ -24,6 +24,10 @@ public class CreateProjectSteps extends BaseSteps {
         this.deleteProjectSteps = deleteProjectSteps;
     }
 
+    public CreateProjectPage getCreateProjectPage() {
+        return createProjectPage;
+    }
+
     @Step("Open Create project page")
     public CreateProjectSteps openPage() {
         createProjectPage
@@ -33,7 +37,7 @@ public class CreateProjectSteps extends BaseSteps {
     }
 
     @Step("Create project {project}")
-    public ProjectSteps createProject(Project project) {
+    public RepositoryProjectSteps createProject(Project project) {
         createProjectPage
                 .fillInNewProjectFields(project)
                 .clickOnCreateProjectButton();
@@ -45,7 +49,7 @@ public class CreateProjectSteps extends BaseSteps {
             projectCode = project.getTitle();
         }
         deleteProjectSteps.addCode(projectCode);
-        return new ProjectSteps(deleteProjectSteps);
+        return new RepositoryProjectSteps(deleteProjectSteps);
     }
 
     @Step("Create {project} using API")

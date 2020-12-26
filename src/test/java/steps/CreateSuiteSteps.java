@@ -15,23 +15,18 @@ public class CreateSuiteSteps extends BaseSteps {
     }
 
     @Step("Create suite {suite}")
-    public ProjectSteps createSuite(Suite suite) {
+    public RepositoryProjectSteps createSuite(Suite suite) {
         createSuiteModal
                 .fillInNewSuiteFields(suite)
                 .clickOnCreateButton();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return new ProjectSteps(deleteProjectSteps);
+        return new RepositoryProjectSteps(deleteProjectSteps);
     }
 
     @Step("Create suite with title {title}")
-    public ProjectSteps createSuite(String title) {
+    public RepositoryProjectSteps createSuite(String title) {
         createSuiteModal
                 .fillInSuiteNameField(title)
                 .clickOnCreateButton();
-        return new ProjectSteps(deleteProjectSteps);
+        return new RepositoryProjectSteps(deleteProjectSteps);
     }
 }

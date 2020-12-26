@@ -15,7 +15,7 @@ public class ProseMirrorField extends Element {
 
     @Override
     public void write(String text) {
-        log.info(String.format("Setting text '%s' into ProseMirrorField with label '%s'", text, label));
-        super.set(text);
+        log.info(String.format("Entering text '%s' into ProseMirrorField with label '%s'", text, label));
+        super.enter(text);
     }
 }

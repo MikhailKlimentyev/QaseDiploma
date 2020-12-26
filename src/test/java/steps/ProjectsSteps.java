@@ -14,6 +14,10 @@ public class ProjectsSteps extends BaseSteps {
         this.deleteProjectSteps = deleteProjectSteps;
     }
 
+    public ProjectsPage getProjectsPage() {
+        return projectsPage;
+    }
+
     @Step("Create new project")
     public CreateProjectSteps createNewProject() {
         projectsPage

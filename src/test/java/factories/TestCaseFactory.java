@@ -32,7 +32,7 @@ public class TestCaseFactory {
         return testCase;
     }
 
-    private static String getTestCaseName() {
+    public static String getTestCaseName() {
         String testCaseName = "QA_" + System.currentTimeMillis();
         log.debug(String.format("Getting test case name %s", testCaseName));
         return testCaseName;

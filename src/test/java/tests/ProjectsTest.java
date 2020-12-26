@@ -30,8 +30,8 @@ public class ProjectsTest extends BaseTest {
                 .openPage()
                 .createProject(project);
 
-        String actualProjectName = projectPage.getProjectName();
-        projectSteps.validateProjectName(actualProjectName, expectedProjectName);
+        String actualProjectName = repositoryProjectPage.getProjectName();
+        repositoryProjectSteps.validateProjectName(actualProjectName, expectedProjectName);
     }
 
     @Test(description = "Verify that validation message is appeared on attempt to create project with empty title")

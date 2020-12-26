@@ -6,8 +6,6 @@ import io.qameta.allure.Feature;
 import models.Suite;
 import org.testng.annotations.Test;
 
-import static pages.ProjectPage.getSuiteNameLocator;
-
 @Feature("Suites")
 public class SuiteTest extends BaseTest {
 
@@ -16,19 +14,20 @@ public class SuiteTest extends BaseTest {
         loginSteps.safelyLogin(validUser);
 
         String projectCode = createProjectSteps.createProject();
-        projectPage.setUrl(projectCode);
+        repositoryProjectPage.setUrl(projectCode);
 
-        projectSteps
+        repositoryProjectSteps
                 .openPage()
                 .clickOnCreateNewSuiteButton();
 
-        String title = SuiteFactory.getSuite().getTitle();
+        String title = SuiteFactory.getTitle();
         createSuiteSteps
                 .createSuite(title);
 
-        projectPage.setSuiteName(title);
-        boolean isSuiteNameDisplayed = projectPage.isElementDisplayed(getSuiteNameLocator());
-        projectSteps.validateSuiteNameIsDisplayed(isSuiteNameDisplayed);
+        repositoryProjectPage.setSuiteName(title);
+        boolean isSuiteNameDisplayed = repositoryProjectPage
+                .isElementDisplayed(repositoryProjectPage.getSuiteNameLocator());
+        repositoryProjectSteps.validateSuiteNameIsDisplayed(isSuiteNameDisplayed);
     }
 
     @Test(description = "Verify that all fields of created suite equals to specified values while creating suite")
@@ -36,20 +35,20 @@ public class SuiteTest extends BaseTest {
         loginSteps.safelyLogin(validUser);
 
         String projectCode = createProjectSteps.createProject();
-        projectPage.setUrl(projectCode);
+        repositoryProjectPage.setUrl(projectCode);
 
-        projectSteps
+        repositoryProjectSteps
                 .openPage()
                 .clickOnCreateNewSuiteButton();
 
-        Suite suite = SuiteFactory.getSuiteWithAllFieldsFilled();
+        Suite suite = SuiteFactory.getSuite();
         createSuiteSteps
                 .createSuite(suite);
 
-        projectPage.setSuiteName(suite.getTitle());
-        String actualSuiteNameText = projectPage.getSuiteNameText();
-        projectSteps.validateElementText(actualSuiteNameText, suite.getTitle());
-        String actualSuiteDescriptionText = projectPage.getSuiteDescriptionText();
-        projectSteps.validateElementText(actualSuiteDescriptionText, suite.getDescription());
+        repositoryProjectPage.setSuiteName(suite.getTitle());
+        String actualSuiteNameText = repositoryProjectPage.getSuiteNameText();
+        repositoryProjectSteps.validateElementText(actualSuiteNameText, suite.getTitle());
+        String actualSuiteDescriptionText = repositoryProjectPage.getSuiteDescriptionText();
+        repositoryProjectSteps.validateElementText(actualSuiteDescriptionText, suite.getDescription());
     }
 }

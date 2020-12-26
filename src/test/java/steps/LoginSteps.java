@@ -15,6 +15,14 @@ public class LoginSteps extends BaseSteps {
         this.deleteProjectSteps = deleteProjectSteps;
     }
 
+    public LoginPage getLoginPage() {
+        return loginPage;
+    }
+
+    public void setLoginPage(LoginPage loginPage) {
+        this.loginPage = loginPage;
+    }
+
     @Step("Open login page")
     public LoginSteps openPage() {
         loginPage

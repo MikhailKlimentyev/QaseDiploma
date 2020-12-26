@@ -6,11 +6,12 @@ public final class Constants {
     public static final String LOGIN_PAGE = "LoginPage";
     public static final String PROJECTS_PAGE = "ProjectsPage";
     public static final String CREATE_PROJECT_PAGE = "CreateProjectPage";
-    public static final String PROJECT_PAGE = "ProjectPage";
+    public static final String REPOSITORY_PROJECT_PAGE = "RepositoryProjectPage";
     public static final String CREATE_SUITE_PAGE = "CreateSuitePage";
     public static final String CREATE_TEST_CASE_PAGE = "CreateTestCasePage";
     public static final String DELETE_PROJECT_PAGE = "DeleteProjectPage";
     public static final String UPLOAD_ATTACHMENT_MODAL = "UploadAttachmentModal";
+    public static final String REPOSITORY_TEST_CASE_MODAL = "RepositoryTestCaseModal";
 
     public static final String LOGIN_BUTTON = "Login";
     public static final String EMAIL_INPUT = "EmailInput";
