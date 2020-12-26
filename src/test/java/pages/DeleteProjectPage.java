@@ -9,8 +9,8 @@ public class DeleteProjectPage extends BasePage {
 
     public static final By DELETE_PROJECT_LOCATOR = By.cssSelector("button.btn-cancel");
 
-    public static String urlPattern = String.format(URL_PATTERN, BASE_URL, "project/%s/delete");
-    public static String url;
+    public String urlPattern = String.format(URL_PATTERN, BASE_URL, "project/%s/delete");
+    public String url;
 
     public DeleteProjectPage setUrl(String code) {
         url = String.format(urlPattern, code);

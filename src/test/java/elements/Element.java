@@ -33,6 +33,10 @@ public abstract class Element {
     }
 
     void set(String text) {
+        new ElementUtils().findVisibleElement(locator, EXPLICITLY_WAIT_TIME_OUT).setValue(text);
+    }
+
+    void enter(String text) {
         new ElementUtils().findVisibleElement(locator, EXPLICITLY_WAIT_TIME_OUT).setValue(text).pressEnter();
     }
 }

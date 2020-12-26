@@ -3,6 +3,7 @@ package steps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import pages.DeleteProjectPage;
 import restassured.adapters.ProjectsAdapter;
@@ -14,11 +15,12 @@ import java.util.stream.Collectors;
 import static org.apache.http.HttpStatus.SC_OK;
 
 @Log4j2
-public class DeleteProjectSteps {
+public class DeleteProjectSteps extends BaseSteps {
 
-    private List<String> projectsCodes = new ArrayList<>();
     private DeleteProjectPage deleteProjectPage;
     private ProjectsAdapter projectsAdapter;
+
+    private List<String> projectsCodes = new ArrayList<>();
 
     public DeleteProjectSteps() {
         deleteProjectPage = new DeleteProjectPage();
@@ -31,12 +33,17 @@ public class DeleteProjectSteps {
         return size;
     }
 
-    @Step("Delete projects by {projectsCodesPrefix} prefix")
-    public void deleteProjects(String projectsCodesPrefix) {
-        log.info(String.format("Deleting projects with '%s' prefix", projectsCodesPrefix));
+    public List<String> getFilteredProjectsCodesByPrefix(String projectsCodesPrefix) {
         List<String> projectsCodes = getProjectsCodesUsingAPI();
-        List<String> filteredProjectsCodes = filterProjectsCodesByPrefix(projectsCodes, projectsCodesPrefix);
-        deleteProjects(filteredProjectsCodes);
+        log.debug(String.format("Getting filtered projects codes '%s' by prefix '%s'", projectsCodes.toString(),
+                projectsCodesPrefix));
+        return filterProjectsCodesByPrefix(projectsCodes, projectsCodesPrefix);
+    }
+
+    @Step("Delete projects with projects codes {projectsCodes}")
+    public void deleteProjects(List<String> projectsCodes) {
+        log.debug(String.format("Deleting projects with projects codes '%s'", projectsCodes.toString()));
+        projectsCodes.forEach(this::deleteProject);
     }
 
     @Step("Delete projects")
@@ -53,8 +60,13 @@ public class DeleteProjectSteps {
 
     @Step("Add {projectCode} code into collection")
     public void addCode(String projectCode) {
-        log.debug(String.format("Adding project code '%s' to collection", projectCode));
-        projectsCodes.add(projectCode);
+        if (!StringUtils.isBlank(projectCode)) {
+            int statusCode = getProjectByCode(projectCode).getStatusCode();
+            if (statusCode == SC_OK) {
+                log.debug(String.format("Adding project code '%s' to collection", projectCode));
+                projectsCodes.add(projectCode);
+            }
+        }
     }
 
     private List<String> getProjectsCodesUsingAPI() {
@@ -76,13 +88,8 @@ public class DeleteProjectSteps {
                 .collect(Collectors.toList());
     }
 
-    private void deleteProjects(List<String> projectsCodes) {
-        log.debug(String.format("Deleting projects codes '%s'", projectsCodes.toString()));
-        projectsCodes.forEach(this::deleteProject);
-    }
-
     private void deleteProject(String projectCode) {
-        int statusCode = projectsAdapter.getByCode(projectCode).getStatusCode();
+        int statusCode = getProjectByCode(projectCode).getStatusCode();
         if (statusCode == SC_OK) {
             log.debug(String.format("Deleting project with '%s' project code", projectCode));
             deleteProjectPage
@@ -90,5 +97,10 @@ public class DeleteProjectSteps {
                     .openPage()
                     .clickOnDeleteProjectButton();
         }
+    }
+
+    private Response getProjectByCode(String projectCode) {
+        log.debug(String.format("Getting project with '%s' project code", projectCode));
+        return projectsAdapter.getByCode(projectCode);
     }
 }

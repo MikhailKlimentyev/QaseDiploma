@@ -2,21 +2,25 @@ package steps;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
-import pages.ProjectPage;
+import pages.RepositoryProjectPage;
 
-public class ProjectSteps {
+public class RepositoryProjectSteps extends RepositorySteps {
 
-    private ProjectPage projectPage;
+    private RepositoryProjectPage repositoryProjectPage;
     private DeleteProjectSteps deleteProjectSteps;
 
-    public ProjectSteps(DeleteProjectSteps deleteProjectSteps) {
-        this.projectPage = new ProjectPage();
+    public RepositoryProjectSteps(DeleteProjectSteps deleteProjectSteps) {
         this.deleteProjectSteps = deleteProjectSteps;
+        this.repositoryProjectPage = new RepositoryProjectPage();
     }
 
-    @Step("Open project page")
-    public ProjectSteps openPage() {
-        projectPage
+    public RepositoryProjectPage getRepositoryProjectPage() {
+        return repositoryProjectPage;
+    }
+
+    @Step("Open repository project page")
+    public RepositoryProjectSteps openPage() {
+        repositoryProjectPage
                 .openPage()
                 .isPageOpened();
         return this;
@@ -24,7 +28,7 @@ public class ProjectSteps {
 
     @Step("Click on create new suite button")
     public CreateProjectSteps clickOnCreateNewSuiteButton() {
-        projectPage
+        repositoryProjectPage
                 .clickOnCreateNewSuiteButton()
                 .isPageOpened();
         return new CreateProjectSteps(deleteProjectSteps);
@@ -32,10 +36,18 @@ public class ProjectSteps {
 
     @Step("Click on create new case button")
     public CreateTestCaseSteps clickOnCreateNewCaseButton() {
-        projectPage
+        repositoryProjectPage
                 .clickOnCreateNewCaseButton()
                 .isPageOpened();
         return new CreateTestCaseSteps(deleteProjectSteps);
+    }
+
+    @Step("Open test case")
+    public RepositorySteps openTestCase() {
+        repositoryProjectPage
+                .clickOnTestCaseName()
+                .isPageOpened();
+        return new RepositorySteps();
     }
 
     @Step("Verify that project name equals to {expectedProjectName}")
@@ -47,10 +59,5 @@ public class ProjectSteps {
     @Step("Verify that suite name is displayed with actual state {isSuiteNameDisplayed}")
     public void validateSuiteNameIsDisplayed(boolean isSuiteNameDisplayed) {
         Assert.assertTrue(isSuiteNameDisplayed, "Suite name is not displayed");
-    }
-
-    @Step("Verify that test case name is displayed with actual state {isTestCaseNameDisplayed}")
-    public void validateTestCaseNameIsDisplayed(boolean isTestCaseNameDisplayed) {
-        Assert.assertTrue(isTestCaseNameDisplayed, "Test case name is not displayed");
     }
 }

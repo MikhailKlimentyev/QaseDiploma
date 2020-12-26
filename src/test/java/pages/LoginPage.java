@@ -30,6 +30,10 @@ public class LoginPage extends BasePage {
         return getTextOfElement(ERROR_MESSAGE_LOCATOR);
     }
 
+    public String getEmailValidationMessage() {
+        return getValidationMessage(EMAIL_INPUT_LOCATOR);
+    }
+
     @Override
     public LoginPage openPage() {
         openPage(LOGIN_PAGE, URL);

@@ -5,9 +5,7 @@ import models.User;
 import org.testng.Assert;
 import pages.LoginPage;
 
-import static models.Constants.INVALID_CREDENTIALS_ERROR_MESSAGE;
-
-public class LoginSteps {
+public class LoginSteps extends BaseSteps {
 
     private LoginPage loginPage;
     private DeleteProjectSteps deleteProjectSteps;
@@ -15,6 +13,14 @@ public class LoginSteps {
     public LoginSteps(DeleteProjectSteps deleteProjectSteps) {
         this.loginPage = new LoginPage();
         this.deleteProjectSteps = deleteProjectSteps;
+    }
+
+    public LoginPage getLoginPage() {
+        return loginPage;
+    }
+
+    public void setLoginPage(LoginPage loginPage) {
+        this.loginPage = loginPage;
     }
 
     @Step("Open login page")
@@ -43,10 +49,5 @@ public class LoginSteps {
     @Step("Verify that login form is displayed with actual state {isLoginFormDisplayed}")
     public void validateLoginFormIsDisplayed(boolean isLoginFormDisplayed) {
         Assert.assertTrue(isLoginFormDisplayed, "Login form is not displayed");
-    }
-
-    @Step("Verify that '{errorMessage}' equals to '" + INVALID_CREDENTIALS_ERROR_MESSAGE + "'")
-    public void validateErrorMessage(String errorMessage) {
-        Assert.assertEquals(errorMessage, INVALID_CREDENTIALS_ERROR_MESSAGE, "Error does not match to expected");
     }
 }

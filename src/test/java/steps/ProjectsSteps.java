@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 import pages.ProjectsPage;
 
-public class ProjectsSteps {
+public class ProjectsSteps extends BaseSteps {
 
     private ProjectsPage projectsPage;
     private DeleteProjectSteps deleteProjectSteps;
@@ -12,6 +12,10 @@ public class ProjectsSteps {
     public ProjectsSteps(DeleteProjectSteps deleteProjectSteps) {
         this.projectsPage = new ProjectsPage();
         this.deleteProjectSteps = deleteProjectSteps;
+    }
+
+    public ProjectsPage getProjectsPage() {
+        return projectsPage;
     }
 
     @Step("Create new project")

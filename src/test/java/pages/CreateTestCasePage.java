@@ -19,12 +19,22 @@ public class CreateTestCasePage extends BasePage {
             "following-sibling::*[@type='button']");
     public static final By TITLE_LABEL_LOCATOR = By.cssSelector("[for='title']");
 
-    public static String urlPattern = String.format(URL_PATTERN, BASE_URL, "case/%s/create");
-    public static String url;
+    public String urlPattern = String.format(URL_PATTERN, BASE_URL, "case/%s/create");
+    public String url;
+    public String attachmentPattern = "//*[text()='%s']";
+    public String attachmentName;
 
     public CreateTestCasePage setUrl(String code) {
         url = String.format(urlPattern, code);
         return this;
+    }
+
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = attachmentName;
+    }
+
+    public By getAttachmentLocator() {
+        return By.xpath(String.format(attachmentPattern, attachmentName));
     }
 
     public CreateTestCasePage fillInNewTestCaseFields(TestCase testCase) {
@@ -42,6 +52,11 @@ public class CreateTestCasePage extends BasePage {
         return this;
     }
 
+    public CreateTestCasePage fillInTestCaseTitleField(String title) {
+        new Input(TITLE_INPUT_LOCATOR, CASE_TITLE_INPUT_LABEL).write(title);
+        return this;
+    }
+
     public CreateTestCasePage clickOnAddStepButton() {
         clickViaJsOnButton(ADD_STEP_BUTTON_LOCATOR, CASE_ADD_STEP_BUTTON);
         return this;
@@ -55,13 +70,13 @@ public class CreateTestCasePage extends BasePage {
     }
 
     public UploadAttachmentModal clickOnAddAttachmentButton() {
-        clickOnButton(ADD_ATTACHMENT_BUTTON_LOCATOR, CASE_ADD_ATTACHMENT_BUTTON);
+        clickViaJsOnButton(ADD_ATTACHMENT_BUTTON_LOCATOR, CASE_ADD_ATTACHMENT_BUTTON);
         return new UploadAttachmentModal();
     }
 
-    public ProjectPage clickOnSaveButton() {
+    public RepositoryProjectPage clickOnSaveButton() {
         clickOnButton(SAVE_BUTTON_LOCATOR, CASE_SAVE_BUTTON);
-        return new ProjectPage();
+        return new RepositoryProjectPage();
     }
 
     @Override

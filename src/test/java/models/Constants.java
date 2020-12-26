@@ -6,11 +6,12 @@ public final class Constants {
     public static final String LOGIN_PAGE = "LoginPage";
     public static final String PROJECTS_PAGE = "ProjectsPage";
     public static final String CREATE_PROJECT_PAGE = "CreateProjectPage";
-    public static final String PROJECT_PAGE = "ProjectPage";
+    public static final String REPOSITORY_PROJECT_PAGE = "RepositoryProjectPage";
     public static final String CREATE_SUITE_PAGE = "CreateSuitePage";
     public static final String CREATE_TEST_CASE_PAGE = "CreateTestCasePage";
     public static final String DELETE_PROJECT_PAGE = "DeleteProjectPage";
     public static final String UPLOAD_ATTACHMENT_MODAL = "UploadAttachmentModal";
+    public static final String REPOSITORY_TEST_CASE_MODAL = "RepositoryTestCaseModal";
 
     public static final String LOGIN_BUTTON = "Login";
     public static final String EMAIL_INPUT = "EmailInput";
@@ -57,6 +58,10 @@ public final class Constants {
     public static final String HTTP_SOCKET_TIMEOUT = "http.socket.timeout";
 
     public static final String INVALID_CREDENTIALS_ERROR_MESSAGE = "These credentials do not match our records.";
+    public static final String EMAIL_DOT_PLACE_ERROR_MESSAGE = "'.' is used at a wrong position in '.com'.";
+    public static final String EMAIL_NOT_CONTAINING_SYMBOL_ERROR_MESSAGE =
+            "Please include an '@' in the email address. 'email' is missing an '@'.";
+    public static final String REQUIRED_FIELD_IS_NOT_FILLED_ERROR_MESSAGE = "Please fill out this field.";
 
     public static final String URL_PATTERN = "%s/%s";
 

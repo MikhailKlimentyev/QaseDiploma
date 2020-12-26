@@ -5,29 +5,31 @@ import pages.base.BasePage;
 
 import static models.Constants.*;
 
-public class ProjectPage extends BasePage {
+public class RepositoryProjectPage extends BasePage {
 
     public static final By PROJECT_NAME_LABEL_LOCATOR = By.className("header");
     public static final By CREATE_NEW_SUITE_BUTTON_LOCATOR = By.xpath("//*[contains(text(), 'Create new suite')]");
     public static final By CREATE_NEW_CASE_BUTTON_LOCATOR = By.xpath("//*[contains(text(), 'Create new case')]");
+    public static final By SUITE_NAME_LOCATOR = By.className("suite-header");
+    public static final By DESCRIPTION_NAME_LOCATOR = By.className("suite-description");
 
-    public static String suiteNamePattern = "//*[@class='suite-header-title'][text()='%s']";
-    public static String suiteName;
-    public static String testCaseNamePattern = "//*[contains(text(), '%s')]";
-    public static String testCaseName;
-    public static String urlPattern = String.format(URL_PATTERN, BASE_URL, "project/%s");
-    public static String url;
+    public String suiteNamePattern = "//*[@class='suite-header-title'][text()='%s']";
+    public String suiteName;
+    public String testCaseNamePattern = "//*[contains(text(), '%s')]";
+    public String testCaseName;
+    public String urlPattern = String.format(URL_PATTERN, BASE_URL, "project/%s");
+    public String url;
 
-    public static By getSuiteNameLocator() {
+    public By getSuiteNameLocator() {
         return By.xpath(String.format(suiteNamePattern, suiteName));
     }
 
-    public static By getTestCaseNameLocator() {
+    public By getTestCaseNameLocator() {
         return By.xpath(String.format(testCaseNamePattern, testCaseName));
     }
 
-    public ProjectPage setUrl(String code) {
-        url = String.format(urlPattern, code);
+    public RepositoryProjectPage setUrl(String code) {
+        this.url = String.format(urlPattern, code);
         return this;
     }
 
@@ -53,15 +55,28 @@ public class ProjectPage extends BasePage {
         return new CreateTestCasePage();
     }
 
+    public RepositoryTestCaseModal clickOnTestCaseName() {
+        clickOnButton(getTestCaseNameLocator(), testCaseName);
+        return new RepositoryTestCaseModal();
+    }
+
+    public String getSuiteNameText() {
+        return getTextOfElement(SUITE_NAME_LOCATOR);
+    }
+
+    public String getSuiteDescriptionText() {
+        return getTextOfElement(DESCRIPTION_NAME_LOCATOR);
+    }
+
     @Override
-    public ProjectPage openPage() {
-        openPage(PROJECT_PAGE, url);
+    public RepositoryProjectPage openPage() {
+        openPage(REPOSITORY_PROJECT_PAGE, url);
         return this;
     }
 
     @Override
-    public ProjectPage isPageOpened() {
-        isPageOpened(CREATE_NEW_SUITE_BUTTON_LOCATOR, PROJECT_PAGE);
+    public RepositoryProjectPage isPageOpened() {
+        isPageOpened(CREATE_NEW_SUITE_BUTTON_LOCATOR, REPOSITORY_PROJECT_PAGE);
         return this;
     }
 }

@@ -12,41 +12,50 @@ import steps.*;
 import tests.listeners.TestListener;
 import utils.SelenideUtils;
 
+import java.util.List;
+
 import static models.Constants.PROJECT_NAME_PREFIX;
 
 @Log4j2
 @Listeners({TestListener.class})
 public class BaseTest {
 
-    LoginPage loginPage = new LoginPage();
-    ProjectsPage projectsPage = new ProjectsPage();
-    CreateProjectPage createProjectPage = new CreateProjectPage();
-    ProjectPage projectPage = new ProjectPage();
-    CreateTestCasePage createTestCasePage = new CreateTestCasePage();
+    LoginPage loginPage;
+    ProjectsPage projectsPage;
+    CreateProjectPage createProjectPage;
+    RepositoryProjectPage repositoryProjectPage;
+    CreateTestCasePage createTestCasePage;
+    RepositoryTestCaseModal repositoryTestCaseModal;
+
     DeleteProjectSteps deleteProjectSteps = new DeleteProjectSteps();
     StartSteps startSteps = new StartSteps(deleteProjectSteps);
     LoginSteps loginSteps = new LoginSteps(deleteProjectSteps);
     ProjectsSteps projectsSteps = new ProjectsSteps(deleteProjectSteps);
     CreateProjectSteps createProjectSteps = new CreateProjectSteps(deleteProjectSteps);
-    ProjectSteps projectSteps = new ProjectSteps(deleteProjectSteps);
+    RepositoryProjectSteps repositoryProjectSteps = new RepositoryProjectSteps(deleteProjectSteps);
     CreateSuiteSteps createSuiteSteps = new CreateSuiteSteps(deleteProjectSteps);
     CreateTestCaseSteps createTestCaseSteps = new CreateTestCaseSteps(deleteProjectSteps);
+    RepositorySteps repositorySteps = new RepositorySteps();
     SelenideUtils selenideUtils = new SelenideUtils();
 
     User validUser = UserFactory.getValidUser();
 
     @BeforeSuite
     public void deleteProjectsByPrefix() {
-        selenideUtils.configureSelenide();
-        loginSteps.safelyLogin(validUser);
-        deleteProjectSteps.deleteProjects(PROJECT_NAME_PREFIX);
-        selenideUtils.closeBrowser();
+        List<String> projects = deleteProjectSteps.getFilteredProjectsCodesByPrefix(PROJECT_NAME_PREFIX);
+        if (!projects.isEmpty()) {
+            selenideUtils.configureSelenide();
+            loginSteps.safelyLogin(validUser);
+            deleteProjectSteps.deleteProjects(projects);
+            selenideUtils.closeBrowser();
+        }
     }
 
     @BeforeMethod
     public void setUp() {
         deleteProjectSteps.clear();
         selenideUtils.configureSelenide();
+        instantiatePages();
     }
 
     @AfterMethod(alwaysRun = true)
@@ -57,5 +66,14 @@ public class BaseTest {
             deleteProjectSteps.deleteProjects();
         }
         selenideUtils.closeBrowser();
+    }
+
+    public void instantiatePages() {
+        loginPage = loginSteps.getLoginPage();
+        projectsPage = projectsSteps.getProjectsPage();
+        createProjectPage = createProjectSteps.getCreateProjectPage();
+        repositoryProjectPage = repositoryProjectSteps.getRepositoryProjectPage();
+        createTestCasePage = createTestCaseSteps.getCreateCasePage();
+        repositoryTestCaseModal = repositorySteps.getRepositoryTestCaseModal();
     }
 }

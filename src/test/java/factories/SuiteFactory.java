@@ -9,7 +9,7 @@ public class SuiteFactory {
 
     public static Suite getSuite() {
         Suite suite = Suite.builder()
-                .title(getSuiteName())
+                .title(getTitle())
                 .description("Some description")
                 .preconditions("Some preconditions")
                 .build();
@@ -17,7 +17,7 @@ public class SuiteFactory {
         return suite;
     }
 
-    private static String getSuiteName() {
+    public static String getTitle() {
         String suiteName = "QA_" + RandomStringUtils.randomAlphabetic(7);
         log.debug(String.format("Getting suite name %s", suiteName));
         return suiteName;
