@@ -35,5 +35,9 @@ master
 target
 out
 .allure
+build
+allure-results
 
 credentials
+
+
