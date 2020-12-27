@@ -15,11 +15,11 @@ public class RetryAnalyzer implements IRetryAnalyzer {
     @Override
     public boolean retry(ITestResult iTestResult) {
         if (!iTestResult.isSuccess()) {
-            if (attempt <= MAX_RETRY) {
+            if (attempt < MAX_RETRY) {
                 log.debug(String.format("Retrying test %s with parameters %s with an attempt %s",
                         iTestResult.getName(), Arrays.toString(iTestResult.getParameters()), attempt));
                 attempt++;
-                iTestResult.setStatus(ITestResult.FAILURE);
+                iTestResult.setStatus(ITestResult.SKIP);
                 return true;
             } else {
                 iTestResult.setStatus(ITestResult.FAILURE);
