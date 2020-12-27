@@ -1,7 +1,6 @@
 package tests;
 
 import factories.UserFactory;
-import lombok.extern.log4j.Log4j2;
 import models.User;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -9,6 +8,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 import pages.*;
 import steps.*;
+import tests.listeners.FcConfigurationListener;
 import tests.listeners.TestListener;
 import utils.SelenideUtils;
 
@@ -16,8 +16,7 @@ import java.util.List;
 
 import static models.Constants.PROJECT_NAME_PREFIX;
 
-@Log4j2
-@Listeners({TestListener.class})
+@Listeners({TestListener.class, FcConfigurationListener.class})
 public class BaseTest {
 
     LoginPage loginPage;

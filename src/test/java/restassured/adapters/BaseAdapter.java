@@ -39,7 +39,7 @@ public class BaseAdapter {
         return getDefaultSpecification()
                 .log().all()
                 .when()
-                .get(URL + uri)
+                .get(uri)
                 .then()
                 .log().all()
                 .extract().response();
